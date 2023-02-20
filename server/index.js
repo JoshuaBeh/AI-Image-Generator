@@ -2,10 +2,12 @@ require('dotenv/config');
 const express = require('express');
 const staticMiddleware = require('./static-middleware');
 const errorMiddleware = require('./error-middleware');
+const routes = require('./routes/openaiRoutes');
 
 const app = express();
 
 app.use(staticMiddleware);
+app.use(routes);
 
 app.get('/api/hello', (req, res) => {
   res.json({ hello: 'world' });
