@@ -7,7 +7,7 @@ const openai = new OpenAIApi(configuration);
 const generateImage = async (req, res) => {
   try {
     const response = await openai.createImage({
-      prompt: 'Man on the moon',
+      prompt: 'The milky way universe with ufos',
       n: 1,
       size: '1024x1024'
     });
@@ -28,7 +28,7 @@ const generateImage = async (req, res) => {
     }
     res.status(400).json({
       success: false,
-      message: 'Somethine went wrong'
+      message: 'Something went wrong'
     });
   }
 };
