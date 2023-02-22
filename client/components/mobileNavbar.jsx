@@ -4,7 +4,7 @@ export default function MobileNavbar() {
   return (
     <footer className='container'>
       <div className='row mobile-navbar'>
-        <div className='col-full inline space-inbetween'>
+        <div className='col-full inline space-around'>
           <div className=''>
             <div className='center'>
               <i className="fa-regular fa-image" />

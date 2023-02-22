@@ -30,8 +30,12 @@ body {
   display: inline-flex;
 }
 
-.space-inbetween {
+.space-around {
   justify-content: space-around;
+}
+
+.space-evenly {
+  justify-content: space-evenly;
 }
 
 .align-right {
