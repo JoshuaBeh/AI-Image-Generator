@@ -7,23 +7,25 @@ export default function Navbar(props) {
         <div className='center'>
           <i className='fa-solid fa-bars pl-10' />
         </div>
-        <div className='hidden'>
-          <div className='center'>
-            <i className="fa-regular fa-image" />
+        <div className='justify-inbetween inline'>
+          <div className='icon-wrapper'>
+            <div className='center'>
+              <i className="fa-regular fa-image" />
+            </div>
+            <p>From Text</p>
           </div>
-          <p>From Text</p>
-        </div>
-        <div className='hidden'>
-          <div className='center'>
-            <i className="fa-regular fa-boxes-stacked" />
+          <div className='icon-wrapper'>
+            <div className='center'>
+              <i className="fa-regular fa-boxes-stacked" />
+            </div>
+            <p>Gallery</p>
           </div>
-          <p>Gallery</p>
-        </div>
-        <div className='hidden'>
-          <div className='center'>
-            <i className="fa-regular fa-heart" />
+          <div className='icon-wrapper'>
+            <div className='center'>
+              <i className="fa-regular fa-heart" />
+            </div>
+            <p>My Likes</p>
           </div>
-          <p>My Likes</p>
         </div>
       </div>
       <div className='col-half align-right'>

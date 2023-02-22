@@ -1,6 +1,23 @@
 i {
   color: #62ff93;
   font-size: 1.5rem;
+  cursor: pointer;
+}
+
+button {
+  cursor: pointer;
+}
+
+p {
+  color: white;
+  font-size: 1rem;
+  margin: 0;
+}
+
+footer {
+  bottom: 0%;
+  position: fixed;
+  width: 100%;
 }
 
 .sign-in-button {
@@ -11,12 +28,6 @@ i {
   color: white;
   padding: 8px;
   border-radius: 12px;
-}
-
-p {
-  color: white;
-  font-size: 1rem;
-  margin: 0;
 }
 
 .navbar {
@@ -31,12 +42,12 @@ p {
   padding-bottom: 10px;
 }
 
-footer {
-  bottom: 0%;
-  position: fixed;
-  width: 100%;
-}
-
 .pl-10 {
   padding-left: 10px;
+}
+
+@media screen and (min-width: 608px) {
+  .navbar {
+    background-color: #252425;
+  }
 }
