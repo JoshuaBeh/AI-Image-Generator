@@ -6,6 +6,7 @@ const routes = require('./routes/openaiRoutes');
 
 const app = express();
 
+app.use(express.json());
 app.use(staticMiddleware);
 app.use(routes);
 
