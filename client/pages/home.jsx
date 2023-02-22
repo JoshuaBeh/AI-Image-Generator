@@ -1,10 +1,12 @@
 import React from 'react';
-import HelloWorld from '../components/hello-world';
+import Navbar from '../components/navbar';
+import MobileNavbar from '../components/mobileNavbar';
 
 export default function Home(props) {
   return (
-    <div>
-      <HelloWorld />
+    <div className='container'>
+      <Navbar />
+      <MobileNavbar />
     </div>
   );
 }

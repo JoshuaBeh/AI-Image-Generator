@@ -1,0 +1,42 @@
+i {
+  color: #62ff93;
+  font-size: 1.5rem;
+}
+
+.sign-in-button {
+  font-size: 0.9rem;
+  margin-right: 10px;
+  border: 1px solid #0288d1;
+  background-color: #0288d1;
+  color: white;
+  padding: 8px;
+  border-radius: 12px;
+}
+
+p {
+  color: white;
+  font-size: 1rem;
+  margin: 0;
+}
+
+.navbar {
+  background-color: #161618;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.mobile-navbar {
+  background-color: #161618;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+footer {
+  bottom: 0%;
+  position: fixed;
+  width: 100%;
+}
+
+.pl-10 {
+  padding-left: 10px;
+}

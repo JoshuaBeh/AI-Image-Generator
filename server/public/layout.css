@@ -1,0 +1,45 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #4a4249;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.container {
+  max-width: 375px;
+  margin: 0;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.inline {
+  display: inline-flex;
+}
+
+.space-inbetween {
+  justify-content: space-around;
+}
+
+.align-right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.row {
+  display: flex;
+}
+
+.col-full,
+.col-half {
+  width: 100%;
+}
