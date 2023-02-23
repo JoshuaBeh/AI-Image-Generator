@@ -20,9 +20,15 @@ footer {
   width: 100%;
 }
 
-/* .w-390 {
-  max-width: 390px;
-} */
+textarea::placeholder {
+  font-size: 1rem;
+}
+
+select.size-button > option {
+  background-color: #62ff93;
+  border: 1px solid #62ff93;
+  border-radius: 5px;
+}
 
 .t-align-center {
   text-align: center;
@@ -45,10 +51,22 @@ footer {
 .generate-button {
   background-color: #62ff93;
   border: 1px solid #62ff93;
+  font-size: 1.2rem;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.size-button {
+  background-color: #cd62ff;
+  border: 1px solid #cd62ff;
+  font-size: 1.2rem;
+  padding: 8px;
+  border-radius: 8px;
 }
 
 .generate-input {
   width: 100%;
+  max-width: 768px;
   height: 3rem;
   resize: none;
   font-size: 1.1rem;
@@ -72,6 +90,10 @@ footer {
 
 .pl-10 {
   padding-left: 10px;
+}
+
+.mt-1 {
+  margin-top: 1rem;
 }
 
 .mt-2 {

@@ -5,11 +5,21 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 const generateImage = async (req, res) => {
+  const { prompt, size } = req.body;
+  let imageSize = '256x256';
+
+  if (size === 'Small') {
+    imageSize = '256x256';
+  } else if (size === 'Medium') {
+    imageSize = '512x512';
+  } else {
+    imageSize = '1024x1024';
+  }
   try {
     const response = await openai.createImage({
-      prompt: 'The milky way universe with ufos',
+      prompt,
       n: 1,
-      size: '1024x1024'
+      size: imageSize
     });
     const src = response.data.data[0].url;
     res.status(200).json({
