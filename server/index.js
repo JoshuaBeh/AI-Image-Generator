@@ -8,7 +8,7 @@ const app = express();
 
 app.use(express.json());
 app.use(staticMiddleware);
-app.use(routes);
+app.use('/openai', routes);
 
 app.get('/api/hello', (req, res) => {
   res.json({ hello: 'world' });

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const { Configuration, OpenAIApi } = require('openai');
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY
@@ -28,12 +29,9 @@ const generateImage = async (req, res) => {
     });
   } catch (err) {
     if (err.response) {
-      // eslint-disable-next-line no-console
       console.log(err.response.status);
-      // eslint-disable-next-line no-console
       console.log(err.response.data);
     } else {
-      // eslint-disable-next-line no-console
       console.log(err.message);
     }
     res.status(400).json({
