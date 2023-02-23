@@ -7,10 +7,10 @@ export default function Home(props) {
   return (
     <div className='container'>
       <Navbar />
-      <div className='row'>
+      <div className='row mt-2 ml-1 mr-1'>
         <div className='col-full'>
-          <h1>Text to Image with AI Image Generator</h1>
-          <h3>Convert words to images in seconds with DALL.E 2</h3>
+          <h1 className='green t-align-center'>Text to Image with AI Image Generator</h1>
+          <h3 className='t-align-center'>Convert words to images in seconds with DALL.E 2</h3>
         </div>
       </div>
       <UserInput />

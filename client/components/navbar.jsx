@@ -7,7 +7,7 @@ export default function Navbar(props) {
         <div className='center'>
           <i className='fa-solid fa-bars pl-10' />
         </div>
-        <div className='justify-inbetween inline'>
+        <div className='justify-around inline'>
           <div className='icon-wrapper'>
             <div className='center'>
               <i className="fa-regular fa-image" />
