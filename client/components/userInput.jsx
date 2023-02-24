@@ -1,17 +1,12 @@
 import React, { useState } from 'react';
 
-export default function UserInput() {
-  const [generateOptions, setGenerateOptions] = useState({
-    prompt: '',
-    size: 'Small'
-  });
-
-  const [src, setSrc] = useState('');
+export default function UserInput({ src, setSrc }) {
+  const [prompt, setPrompt] = useState('');
+  const [size, setSize] = useState('Small');
+  // const [src, setSrc] = useState('');
 
   function handleClick(event) {
     event.preventDefault();
-    const prompt = generateOptions.prompt;
-    const size = generateOptions.size;
     const options = {
       method: 'POST',
       headers: {
@@ -30,20 +25,15 @@ export default function UserInput() {
       .catch(error => {
         console.error(error);
       });
+    window.location.href = 'http://localhost:3000/#temp';
   }
 
-  function handleSelect(event) {
-    setGenerateOptions({
-      prompt: generateOptions.prompt,
-      size: event.target.value
-    });
+  function onSelect(event) {
+    setSize(event.target.value);
   }
 
   function handleInput(event) {
-    setGenerateOptions({
-      prompt: event.target.value,
-      size: generateOptions.size
-    });
+    setPrompt(event.target.value);
   }
   return (
     <>
@@ -54,20 +44,20 @@ export default function UserInput() {
               <textarea onChange={handleInput} type="text" className='generate-input' placeholder='Describe What you want to see. Be as descriptive as possible.' />
             </div>
             <div className='center space-evenly mt-1'>
-              <button className='generate-button' type='sumbit'>Generate</button>
-              <Select handleSelect={handleSelect}/>
+              <button className='generate-button' type='sumbit'>Generate</button>  {/* Change href */}
+              <Select onSelect={onSelect}/>
             </div>
           </div>
         </div>
       </form>
-      <img src={src} />
+      {/* <img src={src} /> */}
     </>
   );
 }
 
-function Select({ handleSelect }) {
+function Select({ onSelect }) {
   return (
-    <select name="size" id="size" className='size-button' onChange={handleSelect}>
+    <select name="size" id="size" className='size-button' onChange={onSelect}>
       <option value="Small">Small</option>
       <option value="Medium">Medium</option>
       <option value="Large">Large</option>
