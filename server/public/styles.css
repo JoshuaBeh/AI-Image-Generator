@@ -20,6 +20,16 @@ footer {
   width: 100%;
 }
 
+img {
+  max-width: 100%;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+a {
+  text-decoration: none;
+}
+
 textarea::placeholder {
   font-size: 1rem;
 }
@@ -36,6 +46,14 @@ select.size-button > option {
 
 .green {
   color: #62ff93;
+}
+
+.white {
+  color: white;
+}
+
+.grey {
+  color: rgb(187, 185, 185);
 }
 
 .sign-in-button {
@@ -62,6 +80,7 @@ select.size-button > option {
   font-size: 1.2rem;
   padding: 8px;
   border-radius: 8px;
+  margin-left: 5rem;
 }
 
 .generate-input {
@@ -100,6 +119,10 @@ select.size-button > option {
   margin-top: 2rem;
 }
 
+.mb-2 {
+  margin-bottom: 2rem;
+}
+
 .ml-1 {
   margin-left: 1rem;
 }
@@ -109,11 +132,12 @@ select.size-button > option {
 }
 
 .generated-image-wrapper {
-  object-fit: contain;
+  /* width: 95%; */
 }
 
 @media screen and (min-width: 608px) {
   .navbar {
     background-color: #252425;
+    border-bottom: 1px solid black;
   }
 }

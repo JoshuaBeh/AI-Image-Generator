@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-export default function UserInput({ setSrc, prompt, setPrompt }) {
-  const [size, setSize] = useState('Small');
+export default function UserInput({ setSrc, prompt, setPrompt, size, setSize }) {
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -40,7 +39,7 @@ export default function UserInput({ setSrc, prompt, setPrompt }) {
           <div className='center'>
             <textarea onChange={handleInput} type="text" className='generate-input' placeholder='Describe What you want to see. Be as descriptive as possible.' />
           </div>
-          <div className='center space-evenly mt-1'>
+          <div className='select-row center mt-1'>
             <button className='generate-button' type='sumbit'>Generate</button>
             <Select onSelect={onSelect}/>
           </div>
@@ -55,7 +54,7 @@ function Select({ onSelect }) {
     <select name="size" id="size" className='size-button' onChange={onSelect}>
       <option value="Small">Small</option>
       <option value="Medium">Medium</option>
-      <option value="Large">Large</option>
+      <option className='large' value="Large">Large</option>
     </select>
   );
 }

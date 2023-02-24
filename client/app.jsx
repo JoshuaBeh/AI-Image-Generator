@@ -6,6 +6,7 @@ export default function App() {
   const [route, setRoute] = useState(parseRoute(window.location.hash));
   const [src, setSrc] = useState('');
   const [prompt, setPrompt] = useState('');
+  const [size, setSize] = useState('Small');
 
   useEffect(() => {
     function handleHashChange(event) {
@@ -17,10 +18,10 @@ export default function App() {
 
   function renderPage() {
     if (route.path === '') {
-      return <Home setSrc={setSrc} prompt={prompt} setPrompt={setPrompt} />;
+      return <Home setSrc={setSrc} prompt={prompt} setPrompt={setPrompt} size={size} setSize={setSize} />;
     }
     if (route.path === 'temp') {
-      return <GeneratedImage src={src} setSrc={setSrc} prompt={prompt} setPrompt={setPrompt} />;
+      return <GeneratedImage src={src} setSrc={setSrc} prompt={prompt} setPrompt={setPrompt} size={size} />;
     }
   }
 
