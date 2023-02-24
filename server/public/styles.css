@@ -30,6 +30,7 @@ a {
   text-decoration: none;
 }
 
+/* Pseudo-classes */
 textarea::placeholder {
   font-size: 1rem;
 }
@@ -40,10 +41,11 @@ select.size-button > option {
   border-radius: 5px;
 }
 
-.t-align-center {
-  text-align: center;
+select:hover {
+  cursor: pointer;
 }
 
+/* Colors */
 .green {
   color: #62ff93;
 }
@@ -56,6 +58,7 @@ select.size-button > option {
   color: rgb(187, 185, 185);
 }
 
+/* Buttons, Inputs */
 .sign-in-button {
   font-size: 0.9rem;
   margin-right: 10px;
@@ -95,6 +98,7 @@ select.size-button > option {
   padding-right: 8px;
 }
 
+/* Component Backgrounds */
 .navbar {
   background-color: #161618;
   padding-top: 10px;
@@ -107,6 +111,7 @@ select.size-button > option {
   padding-bottom: 10px;
 }
 
+/* Padding, Margin */
 .pl-10 {
   padding-left: 10px;
 }

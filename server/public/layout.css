@@ -30,6 +30,10 @@ option.large {
   align-items: center;
 }
 
+.t-align-center {
+  text-align: center;
+}
+
 .flex-column {
   flex-direction: column;
 }

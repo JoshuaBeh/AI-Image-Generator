@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { ThreeCircles } from 'react-loader-spinner';
 
 export default function UserInput({ setSrc, prompt, setPrompt, size, setSize }) {
+  const [loading, setLoading] = useState(false);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -14,9 +16,11 @@ export default function UserInput({ setSrc, prompt, setPrompt, size, setSize }) 
         size
       })
     };
+    setLoading(true);
     fetch('/openai/generateImage', options)
       .then(response => response.json())
       .then(data => {
+        setLoading(false);
         setSrc(data.url);
         window.location.hash = 'temp';
       })
@@ -32,15 +36,39 @@ export default function UserInput({ setSrc, prompt, setPrompt, size, setSize }) 
   function handleInput(event) {
     setPrompt(event.target.value);
   }
+
+  const switchClasses = {
+    isLoading: {
+      button: 'hidden',
+      spinner: 'spinner'
+    },
+    loaded: {
+      button: 'generate-button',
+      spinner: 'hidden'
+    }
+  };
+  const classes = switchClasses[loading ? 'isLoading' : 'loaded'];
   return (
     <form onSubmit={handleSubmit}>
       <div className='row mt-2 ml-1 mr-1'>
         <div className='col-full'>
           <div className='center'>
-            <textarea onChange={handleInput} type="text" className='generate-input' placeholder='Describe What you want to see. Be as descriptive as possible.' />
+            <textarea required onChange={handleInput} type="text" className='generate-input' placeholder='Describe What you want to see. Be as descriptive as possible.'/>
           </div>
           <div className='select-row center mt-1'>
-            <button className='generate-button' type='sumbit'>Generate</button>
+            <button className={classes.button} type='sumbit'>Generate</button>
+            <ThreeCircles
+              height="60"
+              width="60"
+              color="#4fa94d"
+              wrapperStyle={{}}
+              wrapperClass={classes.spinner}
+              visible={true}
+              ariaLabel="three-circles-rotating"
+              outerCircleColor=""
+              innerCircleColor=""
+              middleCircleColor=""
+            />
             <Select onSelect={onSelect}/>
           </div>
         </div>

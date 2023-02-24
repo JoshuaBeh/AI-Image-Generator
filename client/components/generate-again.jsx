@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 export default function GenerateAgain({ src, setSrc, prompt, setPrompt, size }) {
+  // eslint-disable-next-line no-unused-vars
+  const [loading, setLoading] = useState(false);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -14,10 +16,12 @@ export default function GenerateAgain({ src, setSrc, prompt, setPrompt, size }) 
         size
       })
     };
+    setLoading(true);
     fetch('/openai/generateImage', options)
       .then(response => response.json())
       .then(data => {
         setSrc(data.url);
+        setLoading(false);
       })
       .catch(error => {
         console.error(error);
@@ -36,7 +40,7 @@ export default function GenerateAgain({ src, setSrc, prompt, setPrompt, size }) 
       <div className='row'>
         <div className='col-full center flex-column'>
           <p className='grey mb-2 mt-1'><span className='white'>Prompt:</span> {prompt}</p>
-          <button type='submit' className='generate-button'>Generate Again</button>
+          <button type='submit' className='generate-button mb-2'>Generate Again</button>
         </div>
       </div>
     </form>
