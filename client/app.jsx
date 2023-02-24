@@ -5,6 +5,7 @@ import parseRoute from './lib/parse-route';
 export default function App() {
   const [route, setRoute] = useState(parseRoute(window.location.hash));
   const [src, setSrc] = useState('');
+  const [prompt, setPrompt] = useState('');
 
   useEffect(() => {
     function handleHashChange(event) {
@@ -16,10 +17,10 @@ export default function App() {
 
   function renderPage() {
     if (route.path === '') {
-      return <Home setSrc={setSrc} src={src}/>;
+      return <Home setSrc={setSrc} prompt={prompt} setPrompt={setPrompt} />;
     }
     if (route.path === 'temp') {
-      return <GeneratedImage src={src} setSrc={setSrc}/>;
+      return <GeneratedImage src={src} setSrc={setSrc} prompt={prompt} setPrompt={setPrompt} />;
     }
   }
 

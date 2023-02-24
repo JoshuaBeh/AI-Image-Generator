@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 
-export default function UserInput({ src, setSrc }) {
-  const [prompt, setPrompt] = useState('');
+export default function UserInput({ setSrc, prompt, setPrompt }) {
   const [size, setSize] = useState('Small');
-  // const [src, setSrc] = useState('');
 
-  function handleClick(event) {
+  function handleSubmit(event) {
     event.preventDefault();
     const options = {
       method: 'POST',
@@ -21,11 +19,11 @@ export default function UserInput({ src, setSrc }) {
       .then(response => response.json())
       .then(data => {
         setSrc(data.url);
+        window.location.hash = 'temp';
       })
       .catch(error => {
         console.error(error);
       });
-    window.location.href = 'http://localhost:3000/#temp';
   }
 
   function onSelect(event) {
@@ -36,22 +34,19 @@ export default function UserInput({ src, setSrc }) {
     setPrompt(event.target.value);
   }
   return (
-    <>
-      <form onSubmit={handleClick}>
-        <div className='row mt-2 ml-1 mr-1'>
-          <div className='col-full'>
-            <div className='center'>
-              <textarea onChange={handleInput} type="text" className='generate-input' placeholder='Describe What you want to see. Be as descriptive as possible.' />
-            </div>
-            <div className='center space-evenly mt-1'>
-              <button className='generate-button' type='sumbit'>Generate</button>  {/* Change href */}
-              <Select onSelect={onSelect}/>
-            </div>
+    <form onSubmit={handleSubmit}>
+      <div className='row mt-2 ml-1 mr-1'>
+        <div className='col-full'>
+          <div className='center'>
+            <textarea onChange={handleInput} type="text" className='generate-input' placeholder='Describe What you want to see. Be as descriptive as possible.' />
+          </div>
+          <div className='center space-evenly mt-1'>
+            <button className='generate-button' type='sumbit'>Generate</button>
+            <Select onSelect={onSelect}/>
           </div>
         </div>
-      </form>
-      {/* <img src={src} /> */}
-    </>
+      </div>
+    </form>
   );
 }
 

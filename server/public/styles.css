@@ -108,6 +108,10 @@ select.size-button > option {
   margin-right: 1rem;
 }
 
+.generated-image-wrapper {
+  object-fit: contain;
+}
+
 @media screen and (min-width: 608px) {
   .navbar {
     background-color: #252425;
