@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Home from './pages/home';
 import GeneratedImage from './pages/generated-Image';
 import parseRoute from './lib/parse-route';
+import SignInPage from './pages/sign-in-page';
 export default function App() {
   const [route, setRoute] = useState(parseRoute(window.location.hash));
   const [src, setSrc] = useState('');
@@ -22,6 +23,9 @@ export default function App() {
     }
     if (route.path === 'temp') {
       return <GeneratedImage src={src} setSrc={setSrc} prompt={prompt} setPrompt={setPrompt} size={size} />;
+    }
+    if (route.path === 'sign-in') {
+      return <SignInPage />;
     }
   }
 

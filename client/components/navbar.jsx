@@ -30,7 +30,7 @@ export default function Navbar(props) {
       </div>
       <div className='col-half align-right'>
         <div>
-          <button className='sign-in-button'>Sign In</button>
+          <a className='sign-in-button' href='#sign-in'>Sign In</a>
         </div>
       </div>
     </div>
