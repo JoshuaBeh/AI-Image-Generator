@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
+import { ThreeCircles } from 'react-loader-spinner';
 
 export default function GenerateAgain({ src, setSrc, prompt, setPrompt, size }) {
-  // eslint-disable-next-line no-unused-vars
   const [loading, setLoading] = useState(false);
 
   function handleSubmit(event) {
@@ -28,6 +28,18 @@ export default function GenerateAgain({ src, setSrc, prompt, setPrompt, size }) 
       });
   }
 
+  const switchClasses = {
+    isLoading: {
+      button: 'hidden',
+      spinner: 'spinner'
+    },
+    loaded: {
+      button: 'generate-button',
+      spinner: 'hidden'
+    }
+  };
+  const classes = switchClasses[loading ? 'isLoading' : 'loaded'];
+
   return (
     <form onSubmit={handleSubmit}>
       <div className='row mt-2 mr-1 ml-1'>
@@ -40,7 +52,19 @@ export default function GenerateAgain({ src, setSrc, prompt, setPrompt, size }) 
       <div className='row'>
         <div className='col-full center flex-column'>
           <p className='grey mb-2 mt-1'><span className='white'>Prompt:</span> {prompt}</p>
-          <button type='submit' className='generate-button mb-2'>Generate Again</button>
+          <ThreeCircles
+            height="60"
+            width="60"
+            color="#4fa94d"
+            wrapperStyle={{}}
+            wrapperClass={classes.spinner}
+            visible={true}
+            ariaLabel="three-circles-rotating"
+            outerCircleColor=""
+            innerCircleColor=""
+            middleCircleColor=""
+          />
+          <button type='submit' className={`${classes.button} mb-2`}>Generate Again</button>
         </div>
       </div>
     </form>
