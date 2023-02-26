@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Navbar from '../components/navbar';
 import MobileNavbar from '../components/mobileNavbar';
 import UserInput from '../components/userInput';
+import AppContext from '../lib/app-context';
 
-export default function Home({ setSrc, prompt, setPrompt, size, setSize }) {
+export default function Home() {
+  const { setSrc, prompt, setPrompt, size, setSize } = useContext(AppContext);
   return (
     <div className='container'>
       <Navbar />

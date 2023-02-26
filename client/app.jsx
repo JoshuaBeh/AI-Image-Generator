@@ -38,21 +38,22 @@ export default function App() {
   }
 
   function renderPage() {
-    if (route.path === '') {
-      return <Home setSrc={setSrc} prompt={prompt} setPrompt={setPrompt} size={size} setSize={setSize} />;
+    const { path } = route;
+    if (path === '') {
+      return <Home />;
     }
-    if (route.path === 'temp') {
-      return <GeneratedImage src={src} setSrc={setSrc} prompt={prompt} setPrompt={setPrompt} size={size} />;
+    if (path === 'temp') {
+      return <GeneratedImage />;
     }
-    if (route.path === 'sign-in') {
-      return <SignInPage username={username} setUsername={setUsername} password={password} setPassword={setPassword} />;
+    if (path === 'sign-in') {
+      return <SignInPage />;
     }
-    if (route.path === 'sign-up') {
-      return <SignUpPage username={username} setUsername={setUsername} password={password} setPassword={setPassword} />;
+    if (path === 'sign-up') {
+      return <SignUpPage />;
     }
   }
 
-  const contextValue = { user, handleSignIn, handleSignOut };
+  const contextValue = { user, handleSignIn, handleSignOut, src, setSrc, size, setSize, prompt, setPrompt, username, setUsername, password, setPassword };
   return (
     <AppContext.Provider value={contextValue}>
       { renderPage() }

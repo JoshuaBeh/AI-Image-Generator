@@ -32,10 +32,6 @@ app.get('/images', (req, res, next) => {
       res.json(data);
     })
     .catch(error => {
-      // console.error(error);
-      // res.status(500).json({
-      //   error: 'An unexpected error occured.'
-      // });
       next(error);
     });
 });
@@ -49,7 +45,7 @@ app.post('/sign-up', (req, res, next) => {
     .hash(password)
     .then(hashedPassword => {
       const sql = `
-        insert into "Users" ("username", "password")
+        insert into "Users" ("username", "hashedPassword")
         values ($1, $2)
         returning *
       `;
@@ -69,8 +65,8 @@ app.post('/sign-in', (req, res, next) => {
     throw new ClientError(401, 'invalid login');
   }
   const sql = `
-    select "id",
-           "password"
+    select "userId",
+           "hashedPassword"
       from "Users"
      where "username" = $1
   `;

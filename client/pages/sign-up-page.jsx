@@ -4,9 +4,8 @@ import MobileNavbar from '../components/mobileNavbar';
 import SignUp from '../components/sign-up';
 import AppContext from '../lib/app-context';
 
-export default function SignUpPage({ username, setUsername, password, setPassword }) {
-  const { user, handleSignIn } = useContext(AppContext);
-
+export default function SignUpPage() {
+  const { user, handleSignIn, username, setUsername, password, setPassword } = useContext(AppContext);
   return (
     <div className='container'>
       <Navbar />
