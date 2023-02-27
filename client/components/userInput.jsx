@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { ThreeCircles } from 'react-loader-spinner';
 
-export default function UserInput({ setSrc, prompt, setPrompt, size, setSize }) {
+export default function UserInput({ setSrc, prompt, setPrompt, size, setSize, user }) {
   const [loading, setLoading] = useState(false);
-
   function handleSubmit(event) {
     event.preventDefault();
     const options = {
@@ -16,6 +15,9 @@ export default function UserInput({ setSrc, prompt, setPrompt, size, setSize }) 
         size
       })
     };
+    const likes = 0;
+    const { userId } = user;
+
     setLoading(true);
     fetch('/openai/generateImage', options)
       .then(response => response.json())
@@ -23,8 +25,27 @@ export default function UserInput({ setSrc, prompt, setPrompt, size, setSize }) 
         setLoading(false);
         setSrc(data.url);
         window.location.hash = 'temp';
+
+        const src = data.url;
+        const userOptions = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ prompt, src, userId, likes })
+        };
+        if (user) {
+          fetch('/images', userOptions)
+            .then(response => {
+
+            })
+            .catch(error => {
+              console.error(error);
+            });
+        }
       })
       .catch(error => {
+        setLoading(false);
         console.error(error);
       });
   }

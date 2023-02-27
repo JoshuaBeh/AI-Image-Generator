@@ -14,6 +14,7 @@ export default function SignUp({ username, setUsername, password, setPassword, u
     fetch('/sign-up', req)
       .then(response => response.json())
       .then(data => {
+        window.location.hash = 'sign-in';
         if (data.user && data.token) {
           handleSignIn(data);
           window.location.hash = '';

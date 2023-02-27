@@ -36,6 +36,24 @@ app.get('/images', (req, res, next) => {
     });
 });
 
+app.post('/images', (req, res, next) => {
+  const { userId, src, prompt, likes } = req.body;
+  const sql = `
+    insert into "Images" ("userId", "src", "prompt", "likes")
+    values ($1, $2, $3, $4)
+    returning *
+  `;
+  const params = [userId, src, prompt, likes];
+  db.query(sql, params)
+    .then(result => {
+      const [data] = result.rows;
+      res.status(201).json(data);
+    })
+    .catch(error => {
+      next(error);
+    });
+});
+
 app.post('/sign-up', (req, res, next) => {
   const { username, password } = req.body;
   if (!username || !password) {

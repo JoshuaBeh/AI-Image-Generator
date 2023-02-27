@@ -16,7 +16,7 @@ export default function App() {
   const [password, setPassword] = useState('');
 
   useEffect(() => {
-    const token = window.localStorage.getItem('react-context-jwt');
+    const token = window.localStorage.getItem('user-token');
     const user = token ? jwtDecode(token) : null;
     setUser(user);
     function handleHashChange(event) {
@@ -28,12 +28,12 @@ export default function App() {
 
   function handleSignIn(data) {
     const { user, token } = data;
-    window.localStorage.setItem('react-context-jwt', token);
+    window.localStorage.setItem('user-token', token);
     setUser(user);
   }
 
   function handleSignOut() {
-    window.localStorage.removeItem('react-context-jwt');
+    window.localStorage.removeItem('user-token');
     setUser(undefined);
   }
 
