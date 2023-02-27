@@ -26,19 +26,16 @@ export default function UserInput({ setSrc, prompt, setPrompt, size, setSize, us
         setSrc(data.url);
         window.location.hash = 'temp';
 
-        const src = data.url;
-        const userOptions = {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ prompt, src, userId, likes })
-        };
         if (user) {
+          const src = data.url;
+          const userOptions = {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ prompt, src, userId, likes })
+          };
           fetch('/images', userOptions)
-            .then(response => {
-
-            })
             .catch(error => {
               console.error(error);
             });
