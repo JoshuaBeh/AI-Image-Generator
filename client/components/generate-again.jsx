@@ -16,8 +16,6 @@ export default function GenerateAgain({ src, setSrc, prompt, setPrompt, size, us
         size
       })
     };
-    const likes = 0;
-    const { userId } = user;
 
     setLoading(true);
     fetch('/openai/generateImage', options)
@@ -27,6 +25,8 @@ export default function GenerateAgain({ src, setSrc, prompt, setPrompt, size, us
         setLoading(false);
 
         if (user) {
+          const likes = 0;
+          const { userId } = user;
           const src = data.url;
           const userOptions = {
             method: 'POST',
@@ -56,7 +56,7 @@ export default function GenerateAgain({ src, setSrc, prompt, setPrompt, size, us
       spinner: 'hidden'
     }
   };
-  const classes = switchClasses[loading ? 'isLoading' : 'loaded'];
+  const { button, spinner } = switchClasses[loading ? 'isLoading' : 'loaded'];
 
   return (
     <form onSubmit={handleSubmit}>
@@ -75,14 +75,14 @@ export default function GenerateAgain({ src, setSrc, prompt, setPrompt, size, us
             width="60"
             color="#4fa94d"
             wrapperStyle={{}}
-            wrapperClass={classes.spinner}
+            wrapperClass={spinner}
             visible={true}
             ariaLabel="three-circles-rotating"
             outerCircleColor=""
             innerCircleColor=""
             middleCircleColor=""
           />
-          <button type='submit' className={`${classes.button} mb-2`}>Generate Again</button>
+          <button type='submit' className={`${button} mb-2`}>Generate Again</button>
         </div>
       </div>
     </form>

@@ -15,8 +15,6 @@ export default function UserInput({ setSrc, prompt, setPrompt, size, setSize, us
         size
       })
     };
-    const likes = 0;
-    const { userId } = user;
 
     setLoading(true);
     fetch('/openai/generateImage', options)
@@ -27,6 +25,8 @@ export default function UserInput({ setSrc, prompt, setPrompt, size, setSize, us
         window.location.hash = 'temp';
 
         if (user) {
+          const likes = 0;
+          const { userId } = user;
           const src = data.url;
           const userOptions = {
             method: 'POST',
@@ -65,7 +65,7 @@ export default function UserInput({ setSrc, prompt, setPrompt, size, setSize, us
       spinner: 'hidden'
     }
   };
-  const classes = switchClasses[loading ? 'isLoading' : 'loaded'];
+  const { button, spinner } = switchClasses[loading ? 'isLoading' : 'loaded'];
   return (
     <form onSubmit={handleSubmit}>
       <div className='row mt-2 ml-1 mr-1'>
@@ -74,13 +74,13 @@ export default function UserInput({ setSrc, prompt, setPrompt, size, setSize, us
             <textarea required onChange={handleInput} type="text" className='generate-input' placeholder='Describe What you want to see. Be as descriptive as possible.'/>
           </div>
           <div className='select-row center mt-1'>
-            <button className={classes.button} type='sumbit'>Generate</button>
+            <button className={button} type='sumbit'>Generate</button>
             <ThreeCircles
               height="60"
               width="60"
               color="#4fa94d"
               wrapperStyle={{}}
-              wrapperClass={classes.spinner}
+              wrapperClass={spinner}
               visible={true}
               ariaLabel="three-circles-rotating"
               outerCircleColor=""
