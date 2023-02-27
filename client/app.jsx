@@ -6,7 +6,7 @@ import GeneratedImage from './pages/generated-Image';
 import parseRoute from './lib/parse-route';
 import SignInPage from './pages/sign-in-page';
 import SignUpPage from './pages/sign-up-page';
-import AllImagesPage from './pages/all-images';
+import AllImagesPage from './pages/all-images-page';
 export default function App() {
   const [user, setUser] = useState();
   const [route, setRoute] = useState(parseRoute(window.location.hash));
