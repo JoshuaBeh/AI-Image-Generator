@@ -10,7 +10,7 @@ export default function Navbar() {
         <div className='center'>
           <i className='fa-solid fa-bars pl-10 dropdown ptb-20'>
             <div className='dropdown-content'>
-              <a >All Images</a>
+              <a href='#all-images'>All Images</a>
               <a >Top Images</a>
             </div>
           </i>
