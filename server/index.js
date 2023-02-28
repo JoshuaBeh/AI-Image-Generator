@@ -54,6 +54,30 @@ app.post('/images', (req, res, next) => {
     });
 });
 
+app.get('/images/:imageId', (req, res, next) => {
+  const imageId = Number(req.params.imageId);
+  if (!imageId) {
+    throw new ClientError(400, 'imageId must be a positive integer');
+  }
+  const sql = `
+    select "imageId",
+           "userId",
+           "src",
+           "prompt"
+      from "Images"
+     where "imageId" = $1
+  `;
+  const params = [imageId];
+  db.query(sql, params)
+    .then(result => {
+      if (!result.rows[0]) {
+        throw new ClientError(404, `cannot find product with imageId ${imageId}`);
+      }
+      res.json(result.rows[0]);
+    })
+    .catch(error => next(error));
+});
+
 app.post('/sign-up', (req, res, next) => {
   const { username, password } = req.body;
   if (!username || !password) {

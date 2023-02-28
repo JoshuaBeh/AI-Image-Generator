@@ -7,6 +7,7 @@ import parseRoute from './lib/parse-route';
 import SignInPage from './pages/sign-in-page';
 import SignUpPage from './pages/sign-up-page';
 import AllImagesPage from './pages/all-images-page';
+import SelectedImagePage from './pages/selected-image-page';
 export default function App() {
   const [user, setUser] = useState();
   const [route, setRoute] = useState(parseRoute(window.location.hash));
@@ -15,6 +16,7 @@ export default function App() {
   const [size, setSize] = useState('Small');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [currImage, setCurrImage] = useState();
 
   useEffect(() => {
     const token = window.localStorage.getItem('user-token');
@@ -55,9 +57,13 @@ export default function App() {
     if (path === 'all-images') {
       return <AllImagesPage />;
     }
+    if (path === 'images') {
+      const imageId = route.params.get('imageId');
+      return <SelectedImagePage imageId={imageId}/>;
+    }
   }
 
-  const contextValue = { user, handleSignIn, handleSignOut, src, setSrc, size, setSize, prompt, setPrompt, username, setUsername, password, setPassword };
+  const contextValue = { user, handleSignIn, handleSignOut, src, setSrc, size, setSize, prompt, setPrompt, username, setUsername, password, setPassword, currImage, setCurrImage };
   return (
     <AppContext.Provider value={contextValue}>
       { renderPage() }

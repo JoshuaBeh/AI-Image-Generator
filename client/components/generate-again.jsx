@@ -45,7 +45,6 @@ export default function GenerateAgain({ src, setSrc, prompt, setPrompt, size, us
         console.error(error);
       });
   }
-
   const switchClasses = {
     isLoading: {
       button: 'hidden',
@@ -63,7 +62,7 @@ export default function GenerateAgain({ src, setSrc, prompt, setPrompt, size, us
       <div className='row mt-2 mr-1 ml-1'>
         <div className='col-full center'>
           <div className='generated-image-wrapper'>
-            <img src={src}/>
+            <img src={'/images/' + src}/>
           </div>
         </div>
       </div>
