@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { ThreeCircles } from 'react-loader-spinner';
 
-export default function UserInput({ setSrc, prompt, setPrompt, size, setSize }) {
+export default function UserInput({ setSrc, prompt, setPrompt, size, setSize, user }) {
   const [loading, setLoading] = useState(false);
-
   function handleSubmit(event) {
     event.preventDefault();
     const options = {
@@ -16,6 +15,7 @@ export default function UserInput({ setSrc, prompt, setPrompt, size, setSize }) 
         size
       })
     };
+
     setLoading(true);
     fetch('/openai/generateImage', options)
       .then(response => response.json())
@@ -23,8 +23,26 @@ export default function UserInput({ setSrc, prompt, setPrompt, size, setSize }) 
         setLoading(false);
         setSrc(data.url);
         window.location.hash = 'temp';
+
+        if (user) {
+          const likes = 0;
+          const { userId } = user;
+          const src = data.url;
+          const userOptions = {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ prompt, src, userId, likes })
+          };
+          fetch('/images', userOptions)
+            .catch(error => {
+              console.error(error);
+            });
+        }
       })
       .catch(error => {
+        setLoading(false);
         console.error(error);
       });
   }
@@ -47,7 +65,7 @@ export default function UserInput({ setSrc, prompt, setPrompt, size, setSize }) 
       spinner: 'hidden'
     }
   };
-  const classes = switchClasses[loading ? 'isLoading' : 'loaded'];
+  const { button, spinner } = switchClasses[loading ? 'isLoading' : 'loaded'];
   return (
     <form onSubmit={handleSubmit}>
       <div className='row mt-2 ml-1 mr-1'>
@@ -56,13 +74,13 @@ export default function UserInput({ setSrc, prompt, setPrompt, size, setSize }) 
             <textarea required onChange={handleInput} type="text" className='generate-input' placeholder='Describe What you want to see. Be as descriptive as possible.'/>
           </div>
           <div className='select-row center mt-1'>
-            <button className={classes.button} type='sumbit'>Generate</button>
+            <button className={button} type='sumbit'>Generate</button>
             <ThreeCircles
               height="60"
               width="60"
               color="#4fa94d"
               wrapperStyle={{}}
-              wrapperClass={classes.spinner}
+              wrapperClass={spinner}
               visible={true}
               ariaLabel="three-circles-rotating"
               outerCircleColor=""

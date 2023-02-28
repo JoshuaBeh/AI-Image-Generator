@@ -100,6 +100,8 @@ select:hover {
 
 /* Component Backgrounds */
 .navbar {
+  height: 63px;
+  position: relative;
   background-color: #161618;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -114,6 +116,11 @@ select:hover {
 /* Padding, Margin */
 .pl-10 {
   padding-left: 10px;
+}
+
+.ptb-20 {
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .mt-1 {
@@ -140,9 +147,50 @@ select:hover {
   /* width: 95%; */
 }
 
+/* Menu functionality */
+.dropdown {
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #161618;
+  top: 100%;
+  left: 0;
+  min-width: 120px;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: #62ff93;
+  padding: 12px 16px;
+  display: block;
+  font-size: 1rem;
+  font-family: Roboto, sans-serif;
+}
+
+.dropdown-content a:hover {
+  background-color: #252425;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.menu-anchor {
+  color: #62ff93;
+  font-weight: bold;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-size: 1.5rem;
+  padding-left: 10px;
+}
+
 @media screen and (min-width: 608px) {
-  .navbar {
+  /* .navbar {
     background-color: #252425;
     border-bottom: 1px solid black;
-  }
+  } */
 }

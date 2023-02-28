@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ThreeCircles } from 'react-loader-spinner';
 
-export default function GenerateAgain({ src, setSrc, prompt, setPrompt, size }) {
+export default function GenerateAgain({ src, setSrc, prompt, setPrompt, size, user }) {
   const [loading, setLoading] = useState(false);
 
   function handleSubmit(event) {
@@ -16,12 +16,30 @@ export default function GenerateAgain({ src, setSrc, prompt, setPrompt, size }) 
         size
       })
     };
+
     setLoading(true);
     fetch('/openai/generateImage', options)
       .then(response => response.json())
       .then(data => {
         setSrc(data.url);
         setLoading(false);
+
+        if (user) {
+          const likes = 0;
+          const { userId } = user;
+          const src = data.url;
+          const userOptions = {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ prompt, src, userId, likes })
+          };
+          fetch('/images', userOptions)
+            .catch(error => {
+              console.error(error);
+            });
+        }
       })
       .catch(error => {
         console.error(error);
@@ -38,7 +56,7 @@ export default function GenerateAgain({ src, setSrc, prompt, setPrompt, size }) 
       spinner: 'hidden'
     }
   };
-  const classes = switchClasses[loading ? 'isLoading' : 'loaded'];
+  const { button, spinner } = switchClasses[loading ? 'isLoading' : 'loaded'];
 
   return (
     <form onSubmit={handleSubmit}>
@@ -57,14 +75,14 @@ export default function GenerateAgain({ src, setSrc, prompt, setPrompt, size }) 
             width="60"
             color="#4fa94d"
             wrapperStyle={{}}
-            wrapperClass={classes.spinner}
+            wrapperClass={spinner}
             visible={true}
             ariaLabel="three-circles-rotating"
             outerCircleColor=""
             innerCircleColor=""
             middleCircleColor=""
           />
-          <button type='submit' className={`${classes.button} mb-2`}>Generate Again</button>
+          <button type='submit' className={`${button} mb-2`}>Generate Again</button>
         </div>
       </div>
     </form>

@@ -15,6 +15,10 @@ option.large {
   display: none !important;
 }
 
+.absolute {
+  position: absolute;
+}
+
 .icon-wrapper {
   display: none;
 }
