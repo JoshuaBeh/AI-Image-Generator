@@ -24,12 +24,12 @@ export default function AllImages({ user }) {
       <div className='row center'>
         <h1 className='green'>All Images</h1>
       </div>
-      <div className='row'>
+      <div className='row flex-wrap'>
 
         {
             images && images.map(image => (
-              <div key={image.imageId} className=''>
-                <Image image={image}/>
+              <div key={image.imageId} className='col-25'>
+                <Image key={image.imageId} image={image}/>
               </div>
             ))
           }
@@ -41,8 +41,8 @@ export default function AllImages({ user }) {
 
 function Image({ image }) {
   return (
-    <div className='col-25'>
-      <img src={image.src} alt="" />
+    <div className=''>
+      <img src={'/images/' + image.src} alt="" />
     </div>
   );
 }

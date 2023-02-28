@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+const fs = require('fs');
 const { Configuration, OpenAIApi } = require('openai');
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY
@@ -20,9 +21,15 @@ const generateImage = async (req, res) => {
     const response = await openai.createImage({
       prompt,
       n: 1,
-      size: imageSize
+      size: imageSize,
+      response_format: 'b64_json'
     });
-    const src = response.data.data[0].url;
+    const source = response.data.data[0].b64_json;
+    const buffer = Buffer.from(source, 'base64');
+    // src used to be the URL
+    const src = Date.now() + '.jpg';
+    const fileName = `server/public/images/${src}`;
+    fs.writeFileSync(fileName, buffer);
     res.status(200).json({
       success: true,
       url: src
