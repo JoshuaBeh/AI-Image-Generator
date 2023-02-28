@@ -5,12 +5,12 @@ export default function MobileNavbar() {
     <footer className='container'>
       <div className='row mobile-navbar'>
         <div className='col-full inline space-around'>
-          <div className=''>
+          <a className='' href=''>
             <div className='center'>
               <i className="fa-regular fa-image" />
             </div>
             <p>From Text</p>
-          </div>
+          </a>
           <div className=''>
             <div className='center'>
               <i className="fa-regular fa-boxes-stacked" />

@@ -3,7 +3,7 @@ import Navbar from '../components/navbar';
 import MobileNavbar from '../components/mobileNavbar';
 import UserInput from '../components/userInput';
 
-export default function Home(props) {
+export default function Home({ setSrc, prompt, setPrompt, size, setSize }) {
   return (
     <div className='container'>
       <Navbar />
@@ -13,7 +13,7 @@ export default function Home(props) {
           <h3 className='t-align-center'>Convert words to images in seconds with DALL.E 2</h3>
         </div>
       </div>
-      <UserInput />
+      <UserInput setSrc={setSrc} prompt={prompt} setPrompt={setPrompt} size={size} setSize={setSize} />
       <MobileNavbar />
     </div>
   );

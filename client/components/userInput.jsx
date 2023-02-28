@@ -1,17 +1,11 @@
 import React, { useState } from 'react';
+import { ThreeCircles } from 'react-loader-spinner';
 
-export default function UserInput() {
-  const [generateOptions, setGenerateOptions] = useState({
-    prompt: '',
-    size: 'Small'
-  });
+export default function UserInput({ setSrc, prompt, setPrompt, size, setSize }) {
+  const [loading, setLoading] = useState(false);
 
-  const [src, setSrc] = useState('');
-
-  function handleClick(event) {
+  function handleSubmit(event) {
     event.preventDefault();
-    const prompt = generateOptions.prompt;
-    const size = generateOptions.size;
     const options = {
       method: 'POST',
       headers: {
@@ -22,55 +16,73 @@ export default function UserInput() {
         size
       })
     };
+    setLoading(true);
     fetch('/openai/generateImage', options)
       .then(response => response.json())
       .then(data => {
+        setLoading(false);
         setSrc(data.url);
+        window.location.hash = 'temp';
       })
       .catch(error => {
         console.error(error);
       });
   }
 
-  function handleSelect(event) {
-    setGenerateOptions({
-      prompt: generateOptions.prompt,
-      size: event.target.value
-    });
+  function onSelect(event) {
+    setSize(event.target.value);
   }
 
   function handleInput(event) {
-    setGenerateOptions({
-      prompt: event.target.value,
-      size: generateOptions.size
-    });
+    setPrompt(event.target.value);
   }
+
+  const switchClasses = {
+    isLoading: {
+      button: 'hidden',
+      spinner: 'spinner'
+    },
+    loaded: {
+      button: 'generate-button',
+      spinner: 'hidden'
+    }
+  };
+  const classes = switchClasses[loading ? 'isLoading' : 'loaded'];
   return (
-    <>
-      <form onSubmit={handleClick}>
-        <div className='row mt-2 ml-1 mr-1'>
-          <div className='col-full'>
-            <div className='center'>
-              <textarea onChange={handleInput} type="text" className='generate-input' placeholder='Describe What you want to see. Be as descriptive as possible.' />
-            </div>
-            <div className='center space-evenly mt-1'>
-              <button className='generate-button' type='sumbit'>Generate</button>
-              <Select handleSelect={handleSelect}/>
-            </div>
+    <form onSubmit={handleSubmit}>
+      <div className='row mt-2 ml-1 mr-1'>
+        <div className='col-full'>
+          <div className='center'>
+            <textarea required onChange={handleInput} type="text" className='generate-input' placeholder='Describe What you want to see. Be as descriptive as possible.'/>
+          </div>
+          <div className='select-row center mt-1'>
+            <button className={classes.button} type='sumbit'>Generate</button>
+            <ThreeCircles
+              height="60"
+              width="60"
+              color="#4fa94d"
+              wrapperStyle={{}}
+              wrapperClass={classes.spinner}
+              visible={true}
+              ariaLabel="three-circles-rotating"
+              outerCircleColor=""
+              innerCircleColor=""
+              middleCircleColor=""
+            />
+            <Select onSelect={onSelect}/>
           </div>
         </div>
-      </form>
-      <img src={src} />
-    </>
+      </div>
+    </form>
   );
 }
 
-function Select({ handleSelect }) {
+function Select({ onSelect }) {
   return (
-    <select name="size" id="size" className='size-button' onChange={handleSelect}>
+    <select name="size" id="size" className='size-button' onChange={onSelect}>
       <option value="Small">Small</option>
       <option value="Medium">Medium</option>
-      <option value="Large">Large</option>
+      <option className='large' value="Large">Large</option>
     </select>
   );
 }

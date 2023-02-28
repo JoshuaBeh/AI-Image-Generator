@@ -20,6 +20,17 @@ footer {
   width: 100%;
 }
 
+img {
+  max-width: 100%;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* Pseudo-classes */
 textarea::placeholder {
   font-size: 1rem;
 }
@@ -30,14 +41,24 @@ select.size-button > option {
   border-radius: 5px;
 }
 
-.t-align-center {
-  text-align: center;
+select:hover {
+  cursor: pointer;
 }
 
+/* Colors */
 .green {
   color: #62ff93;
 }
 
+.white {
+  color: white;
+}
+
+.grey {
+  color: rgb(187, 185, 185);
+}
+
+/* Buttons, Inputs */
 .sign-in-button {
   font-size: 0.9rem;
   margin-right: 10px;
@@ -62,6 +83,7 @@ select.size-button > option {
   font-size: 1.2rem;
   padding: 8px;
   border-radius: 8px;
+  margin-left: 5rem;
 }
 
 .generate-input {
@@ -76,6 +98,7 @@ select.size-button > option {
   padding-right: 8px;
 }
 
+/* Component Backgrounds */
 .navbar {
   background-color: #161618;
   padding-top: 10px;
@@ -88,6 +111,7 @@ select.size-button > option {
   padding-bottom: 10px;
 }
 
+/* Padding, Margin */
 .pl-10 {
   padding-left: 10px;
 }
@@ -100,6 +124,10 @@ select.size-button > option {
   margin-top: 2rem;
 }
 
+.mb-2 {
+  margin-bottom: 2rem;
+}
+
 .ml-1 {
   margin-left: 1rem;
 }
@@ -108,8 +136,13 @@ select.size-button > option {
   margin-right: 1rem;
 }
 
+.generated-image-wrapper {
+  /* width: 95%; */
+}
+
 @media screen and (min-width: 608px) {
   .navbar {
     background-color: #252425;
+    border-bottom: 1px solid black;
   }
 }
