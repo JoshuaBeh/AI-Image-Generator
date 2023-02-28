@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
-export default function AllImages({ user }) {
+export default function AllImages({ user, currImage, setCurrImage }) {
   const [images, setImages] = useState();
+
+  function handleClick(imageId) {
+    setCurrImage(imageId);
+  }
 
   useEffect(() => {
     // const options = {
@@ -29,7 +33,7 @@ export default function AllImages({ user }) {
         {
             images && images.slice(0).reverse().map(image => (
               <div key={image.imageId} className='col-25'>
-                <Image key={image.imageId} image={image}/>
+                <Image key={image.imageId} image={image} handleClick={handleClick} />
               </div>
             ))
           }
@@ -39,10 +43,13 @@ export default function AllImages({ user }) {
   );
 }
 
-function Image({ image }) {
+function Image({ image, handleClick }) {
+  const { imageId } = image;
   return (
-    <div className=''>
-      <img src={'/images/' + image.src} alt="" />
-    </div>
+    <a href={`#images?imageId=${imageId}`}>
+      <div className=''>
+        <img onClick={handleClick(imageId)} src={'/images/' + image.src} alt="" />
+      </div>
+    </a>
   );
 }
