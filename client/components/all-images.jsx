@@ -27,7 +27,7 @@ export default function AllImages({ user }) {
       <div className='row flex-wrap'>
 
         {
-            images && images.map(image => (
+            images && images.slice(0).reverse().map(image => (
               <div key={image.imageId} className='col-25'>
                 <Image key={image.imageId} image={image}/>
               </div>
