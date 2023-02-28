@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
-export default function AllImages({ user, currImage, setCurrImage }) {
+export default function AllImages({ user }) {
   const [images, setImages] = useState();
-
-  function handleClick(imageId) {
-    setCurrImage(imageId);
-  }
 
   useEffect(() => {
     // const options = {
@@ -31,9 +27,9 @@ export default function AllImages({ user, currImage, setCurrImage }) {
       <div className='row flex-wrap'>
 
         {
-            images && images.slice(0).reverse().map(image => (
+            images?.slice(0).reverse().map(image => (
               <div key={image.imageId} className='col-25'>
-                <Image key={image.imageId} image={image} handleClick={handleClick} />
+                <Image key={image.imageId} image={image} />
               </div>
             ))
           }
@@ -48,7 +44,7 @@ function Image({ image, handleClick }) {
   return (
     <a href={`#images?imageId=${imageId}`}>
       <div className=''>
-        <img onClick={handleClick(imageId)} src={'/images/' + image.src} alt="" />
+        <img src={'/images/' + image.src} alt={image.prompt} />
       </div>
     </a>
   );
