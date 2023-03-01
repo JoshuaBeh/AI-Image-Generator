@@ -26,7 +26,8 @@ const generateImage = async (req, res) => {
     });
     const source = response.data.data[0].b64_json;
     const buffer = Buffer.from(source, 'base64');
-    // src used to be the URL
+
+    // Generate a unique filename for the image and write it to the server's public/images directory
     const src = Date.now() + '.jpg';
     const fileName = `server/public/images/${src}`;
     fs.writeFileSync(fileName, buffer);

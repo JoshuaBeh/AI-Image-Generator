@@ -11,9 +11,14 @@ export default function SelectedImage({ imageId }) {
 
   const { src, prompt } = image;
   return (
-    <div>
-      <img src={`/images/${src}`} alt={prompt} />
-      <h1>Prompt: {prompt}</h1>
+    <div className='row center flex-column mt-2 mr-1 ml-1'>
+      <div>
+        <img className='selected-img' src={`/images/${src}`} alt={prompt} />
+        <div>
+          <p className='prompt-size white mt-2 mb-05'>Prompt</p>
+          <p className='text-center prompt-size grey mb-2'>{prompt}</p>
+        </div>
+      </div>
     </div>
   );
 }

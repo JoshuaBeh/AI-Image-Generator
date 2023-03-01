@@ -61,14 +61,17 @@ export default function GenerateAgain({ src, setSrc, prompt, setPrompt, size, us
     <form onSubmit={handleSubmit}>
       <div className='row mt-2 mr-1 ml-1'>
         <div className='col-full center'>
-          <div className='generated-image-wrapper'>
-            <img src={'/images/' + src}/>
+          <div>
+            <img className='selected-img' src={'/images/' + src}/>
+            <div>
+              <p className='prompt-size white mt-2 mb-05'>Prompt</p>
+              <p className='text-center prompt-size grey mb-2'>{prompt}</p>
+            </div>
           </div>
         </div>
       </div>
       <div className='row'>
         <div className='col-full center flex-column'>
-          <p className='grey mb-2 mt-1'><span className='white'>Prompt:</span> {prompt}</p>
           <ThreeCircles
             height="60"
             width="60"

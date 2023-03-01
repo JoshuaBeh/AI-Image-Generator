@@ -34,6 +34,11 @@ option.large {
   align-items: center;
 }
 
+.justify-center {
+  display: flex;
+  justify-content: center;
+}
+
 .t-align-center {
   text-align: center;
 }
@@ -74,12 +79,25 @@ option.large {
 }
 
 .col-25 {
-  width: 25%;
+  width: 100%;
+}
+
+.list-img {
+  width: 100%;
+  height: auto;
 }
 
 @media screen and (min-width: 530px) {
   select.size-button {
     display: inline;
+  }
+
+  .col-25 {
+    width: 50%;
+  }
+
+  .container {
+    max-width: 608px;
   }
 }
 
@@ -97,17 +115,30 @@ option.large {
     margin-right: 15px;
     margin-left: 15px;
   }
+
+  .selected-img {
+    min-width: 512px;
+    min-height: 512px;
+  }
 }
 
 @media screen and (min-width: 901px) {
   .container {
     max-width: 1200px;
   }
+
+  .col-25 {
+    width: calc((100%) / 3);
+  }
 }
 
 @media screen and (min-width: 1201px) {
   .container {
     max-width: 1920px;
+  }
+
+  .col-25 {
+    width: 25%;
   }
 
   option.large {
