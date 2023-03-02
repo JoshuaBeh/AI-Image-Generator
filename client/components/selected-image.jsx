@@ -1,10 +1,8 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-console */
 import React, { useState, useEffect } from 'react';
 
 export default function SelectedImage({ imageId, user }) {
   const [image, setImage] = useState('');
-  const [isLiked, setIsLiked] = useState();
+  const [isLiked, setIsLiked] = useState(false);
 
   // Fetch the selected image's row from the database
   useEffect(() => {
@@ -20,9 +18,19 @@ export default function SelectedImage({ imageId, user }) {
     fetch(`/images/${imageId}/likedImage`)
       .then(response => response.json())
       .then(data => {
-        console.log(data);
-      });
-  }, [imageId]);
+        for (let i = 0; i < data.length; i++) {
+          const currUser = data[i].userId;
+          const currImg = data[i].imageId;
+          if (user && currUser === String(user.userId) && currImg === imageId) {
+            setIsLiked(true);
+            return;
+          } else {
+            setIsLiked(false);
+          }
+        }
+      })
+      .catch(error => console.error(error));
+  }, [imageId, user, isLiked]);
 
   // Adds the current user's userId and the selected imageId to the database
   function handleButtonClick() {
@@ -39,12 +47,25 @@ export default function SelectedImage({ imageId, user }) {
     };
 
     fetch('/images/likedImage', options)
-      .then(response => response.json())
       .catch(error => {
         console.error(error);
       });
+    if (isLiked === false) {
+      setIsLiked(true);
+    }
   }
 
+  const switchClasses = {
+    liked: {
+      heartColor: 'red',
+      heartFill: 'fa-solid'
+    },
+    unliked: {
+      heartColor: 'white',
+      heartFill: 'fa-solid'
+    }
+  };
+  const { heartColor, heartFill } = switchClasses[isLiked ? 'liked' : 'unliked'];
   const { src, prompt } = image;
   return (
     <div className='row center flex-column mt-2 mr-1 ml-1'>
@@ -53,7 +74,7 @@ export default function SelectedImage({ imageId, user }) {
         <button
         onClick={handleButtonClick}
         className='absolute like-button'>Like
-          <i className="fa-regular fa-heart like-heart" aria-hidden="true" />
+          <i className={`${heartFill} ${heartColor} fa-heart like-heart`} aria-hidden="true" />
         </button>
         <div>
           <p className='prompt-size white mt-2 mb-05'>Prompt</p>
