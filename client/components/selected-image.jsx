@@ -1,10 +1,12 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-console */
 import React, { useState, useEffect } from 'react';
 
 export default function SelectedImage({ imageId, user }) {
   const [image, setImage] = useState('');
-  // eslint-disable-next-line no-unused-vars
   const [isLiked, setIsLiked] = useState();
 
+  // Fetch the selected image's row from the database
   useEffect(() => {
     fetch(`/images/${imageId}`)
       .then(response => response.json())
@@ -12,15 +14,17 @@ export default function SelectedImage({ imageId, user }) {
       .catch(error => console.error(error));
   }, [imageId]);
 
+  // Fetch a list of all liked images and check to see if the
+  // selected image is liked by the current user
   useEffect(() => {
     fetch(`/images/${imageId}/likedImage`)
       .then(response => response.json())
       .then(data => {
-        // eslint-disable-next-line no-console
         console.log(data);
       });
   }, [imageId]);
 
+  // Adds the current user's userId and the selected imageId to the database
   function handleButtonClick() {
     const { userId } = user;
     const options = {
