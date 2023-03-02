@@ -23,7 +23,6 @@ CREATE TABLE "public"."Images" (
 	"userId" bigint NOT NULL,
 	"src" TEXT NOT NULL,
 	"prompt" TEXT NOT NULL,
-	"likes" bigint NOT NULL,
 	CONSTRAINT "Images_pk" PRIMARY KEY ("imageId")
 ) WITH (
   OIDS=FALSE

@@ -25,7 +25,6 @@ export default function GenerateAgain({ src, setSrc, prompt, setPrompt, size, us
         setLoading(false);
 
         if (user) {
-          const likes = 0;
           const { userId } = user;
           const src = data.url;
           const userOptions = {
@@ -33,7 +32,7 @@ export default function GenerateAgain({ src, setSrc, prompt, setPrompt, size, us
             headers: {
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ prompt, src, userId, likes })
+            body: JSON.stringify({ prompt, src, userId })
           };
           fetch('/images', userOptions)
             .catch(error => {
