@@ -98,6 +98,21 @@ select:hover {
   padding-right: 8px;
 }
 
+.like-button {
+  width: 65px;
+  height: 28px;
+  color: white;
+  border: 2px solid grey;
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.4);
+  right: 20px;
+  top: 20px;
+}
+
+.like-button:hover {
+  border: 2px solid white;
+}
+
 /* Component Backgrounds */
 .navbar {
   height: 63px;
@@ -195,6 +210,11 @@ select:hover {
 .prompt-size {
   font-size: 1.2rem;
   max-width: 256px;
+}
+
+i.like-heart {
+  font-size: 1rem;
+  color: white;
 }
 
 @media screen and (min-width: 608px) {

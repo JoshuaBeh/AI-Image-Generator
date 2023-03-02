@@ -15,6 +15,10 @@ option.large {
   display: none !important;
 }
 
+.relative {
+  position: relative;
+}
+
 .absolute {
   position: absolute;
 }
@@ -119,6 +123,8 @@ option.large {
   .selected-img {
     min-width: 512px;
     min-height: 512px;
+    max-width: 512px;
+    max-height: 512px;
   }
 }
 
@@ -129,6 +135,11 @@ option.large {
 
   .col-25 {
     width: calc((100%) / 3);
+  }
+
+  .selected-img {
+    max-width: 750px;
+    max-height: 750px;
   }
 }
 
