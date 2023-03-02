@@ -5,12 +5,12 @@ import AppContext from '../lib/app-context';
 import AllImages from '../components/all-images';
 
 export default function AllImagesPage() {
-  const { user, currImage, setCurrImage } = useContext(AppContext);
+  const { user } = useContext(AppContext);
 
   return (
     <div className='container'>
       <Navbar />
-      <AllImages user={user} currImage={currImage} setCurrImage={setCurrImage} />
+      <AllImages user={user} />
       <MobileNavbar />
     </div>
   );

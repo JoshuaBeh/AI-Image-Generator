@@ -48,7 +48,7 @@ export default function Navbar() {
 function SignInButton({ user, handleSignOut }) {
   if (user) {
     return (
-      <i className='fa-solid fa-user' onClick={handleSignOut} />
+      <button className='sign-in-button' onClick={handleSignOut}>Sign Out</button>
     );
   }
   return (

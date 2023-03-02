@@ -15,6 +15,10 @@ option.large {
   display: none !important;
 }
 
+.relative {
+  position: relative;
+}
+
 .absolute {
   position: absolute;
 }
@@ -32,6 +36,11 @@ option.large {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.justify-center {
+  display: flex;
+  justify-content: center;
 }
 
 .t-align-center {
@@ -74,12 +83,25 @@ option.large {
 }
 
 .col-25 {
-  width: 25%;
+  width: 100%;
+}
+
+.list-img {
+  width: 100%;
+  height: auto;
 }
 
 @media screen and (min-width: 530px) {
   select.size-button {
     display: inline;
+  }
+
+  .col-25 {
+    width: 50%;
+  }
+
+  .container {
+    max-width: 608px;
   }
 }
 
@@ -97,17 +119,37 @@ option.large {
     margin-right: 15px;
     margin-left: 15px;
   }
+
+  .selected-img {
+    min-width: 512px;
+    min-height: 512px;
+    max-width: 512px;
+    max-height: 512px;
+  }
 }
 
 @media screen and (min-width: 901px) {
   .container {
     max-width: 1200px;
   }
+
+  .col-25 {
+    width: calc((100%) / 3);
+  }
+
+  .selected-img {
+    max-width: 750px;
+    max-height: 750px;
+  }
 }
 
 @media screen and (min-width: 1201px) {
   .container {
     max-width: 1920px;
+  }
+
+  .col-25 {
+    width: 25%;
   }
 
   option.large {
