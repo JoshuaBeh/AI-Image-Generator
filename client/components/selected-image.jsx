@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import likeButton from '../lib/like-button';
 
 export default function SelectedImage({ imageId, user }) {
   const [image, setImage] = useState('');
@@ -30,29 +31,12 @@ export default function SelectedImage({ imageId, user }) {
         }
       })
       .catch(error => console.error(error));
-  }, [imageId, user, isLiked]);
+  }, [imageId, user]);
 
   // Adds the current user's userId and the selected imageId to the database
   function handleButtonClick() {
     const { userId } = user;
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        imageId,
-        userId
-      })
-    };
-
-    fetch('/images/likedImage', options)
-      .catch(error => {
-        console.error(error);
-      });
-    if (isLiked === false) {
-      setIsLiked(true);
-    }
+    likeButton(isLiked, imageId, userId, setIsLiked);
   }
 
   const switchClasses = {
@@ -62,7 +46,7 @@ export default function SelectedImage({ imageId, user }) {
     },
     unliked: {
       heartColor: 'white',
-      heartFill: 'fa-solid'
+      heartFill: 'fa-regular'
     }
   };
   const { heartColor, heartFill } = switchClasses[isLiked ? 'liked' : 'unliked'];

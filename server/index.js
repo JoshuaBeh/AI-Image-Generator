@@ -85,14 +85,29 @@ app.post('/images/likedImage', (req, res, next) => {
   }
   const sql = `
     insert into "Liked_Image" ("imageId", "userId")
-         select "imageId", "userId"
-           from "Images"
-          where "imageId" = $1 and "userId" = $2
+      values ($1, $2)
   `;
   const params = [imageId, userId];
   db.query(sql, params)
     .then(result => {
       res.status(201).json(result.rows[0]);
+    })
+    .catch(error => next(error));
+});
+
+app.delete('/images/likedImage', (req, res, next) => {
+  const { imageId, userId } = req.body;
+  if (!imageId || !userId) {
+    throw new ClientError(400, 'imageId and userId must be positive integers');
+  }
+  const sql = `
+    delete from "Liked_Image"
+          where "imageId" = $1 and "userId" = $2
+  `;
+  const params = [imageId, userId];
+  db.query(sql, params)
+    .then(result => {
+      res.status(204).json(result.rows[0]);
     })
     .catch(error => next(error));
 });
