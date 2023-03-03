@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import likeButton from '../lib/like-button';
+import LikeButton from './like-button';
 
 export default function SelectedImage({ imageId, user }) {
   const [image, setImage] = useState('');
@@ -55,11 +56,7 @@ export default function SelectedImage({ imageId, user }) {
     <div className='row center flex-column mt-2 mr-1 ml-1'>
       <div className='relative'>
         <img className='selected-img' src={`/images/${src}`} alt={prompt} />
-        <button
-        onClick={handleButtonClick}
-        className='absolute like-button'>Like
-          <i className={`${heartFill} ${heartColor} fa-heart like-heart`} aria-hidden="true" />
-        </button>
+        <LikeButton handleButtonClick={handleButtonClick} heartFill={heartFill} heartColor={heartColor} />
         <div>
           <p className='prompt-size white mt-2 mb-05'>Prompt</p>
           <p className='text-center prompt-size grey mb-2'>{prompt}</p>

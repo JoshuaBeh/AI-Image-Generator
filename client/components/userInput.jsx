@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ThreeCircles } from 'react-loader-spinner';
 
-export default function UserInput({ setSrc, prompt, setPrompt, size, setSize, user }) {
+export default function UserInput({ setSrc, prompt, setPrompt, size, setSize, user, setCurrImg }) {
   const [loading, setLoading] = useState(false);
   function handleSubmit(event) {
     event.preventDefault();
@@ -35,6 +35,8 @@ export default function UserInput({ setSrc, prompt, setPrompt, size, setSize, us
             body: JSON.stringify({ prompt, src, userId })
           };
           fetch('/images', userOptions)
+            .then(response => response.json())
+            .then(data => setCurrImg(data.imageId))
             .catch(error => {
               console.error(error);
             });

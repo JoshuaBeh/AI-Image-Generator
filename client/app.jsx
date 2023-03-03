@@ -16,6 +16,7 @@ export default function App() {
   const [size, setSize] = useState('Small');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [currImg, setCurrImg] = useState(0);
 
   useEffect(() => {
     const token = window.localStorage.getItem('user-token');
@@ -62,7 +63,7 @@ export default function App() {
     }
   }
 
-  const contextValue = { user, handleSignIn, handleSignOut, src, setSrc, size, setSize, prompt, setPrompt, username, setUsername, password, setPassword };
+  const contextValue = { user, handleSignIn, handleSignOut, src, setSrc, size, setSize, prompt, setPrompt, username, setUsername, password, setPassword, currImg, setCurrImg };
   return (
     <AppContext.Provider value={contextValue}>
       { renderPage() }
