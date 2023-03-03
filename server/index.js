@@ -37,13 +37,13 @@ app.get('/images', (req, res, next) => {
 });
 
 app.post('/images', (req, res, next) => {
-  const { userId, src, prompt, likes } = req.body;
+  const { userId, src, prompt } = req.body;
   const sql = `
-    insert into "Images" ("userId", "src", "prompt", "likes")
-    values ($1, $2, $3, $4)
+    insert into "Images" ("userId", "src", "prompt")
+    values ($1, $2, $3)
     returning *
   `;
-  const params = [userId, src, prompt, likes];
+  const params = [userId, src, prompt];
   db.query(sql, params)
     .then(result => {
       const [data] = result.rows;
@@ -73,7 +73,39 @@ app.get('/images/:imageId', (req, res, next) => {
       if (!result.rows[0]) {
         throw new ClientError(404, `cannot find product with imageId ${imageId}`);
       }
-      res.json(result.rows[0]);
+      res.status(200).json(result.rows[0]);
+    })
+    .catch(error => next(error));
+});
+
+app.post('/images/likedImage', (req, res, next) => {
+  const { imageId, userId } = req.body;
+  if (!imageId || !userId) {
+    throw new ClientError(400, 'imageId and userId must be positive integers');
+  }
+  const sql = `
+    insert into "Liked_Image" ("imageId", "userId")
+         select "imageId", "userId"
+           from "Images"
+          where "imageId" = $1 and "userId" = $2
+  `;
+  const params = [imageId, userId];
+  db.query(sql, params)
+    .then(result => {
+      res.status(201).json(result.rows[0]);
+    })
+    .catch(error => next(error));
+});
+
+app.get('/images/:imageId/likedImage', (req, res, next) => {
+  const sql = `
+    select *
+      from "Liked_Image"
+  `;
+
+  db.query(sql)
+    .then(result => {
+      res.status(200).json(result.rows);
     })
     .catch(error => next(error));
 });

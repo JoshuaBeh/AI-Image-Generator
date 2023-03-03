@@ -25,7 +25,6 @@ export default function UserInput({ setSrc, prompt, setPrompt, size, setSize, us
         window.location.hash = 'temp';
 
         if (user) {
-          const likes = 0;
           const { userId } = user;
           const src = data.url;
           const userOptions = {
@@ -33,7 +32,7 @@ export default function UserInput({ setSrc, prompt, setPrompt, size, setSize, us
             headers: {
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ prompt, src, userId, likes })
+            body: JSON.stringify({ prompt, src, userId })
           };
           fetch('/images', userOptions)
             .catch(error => {
