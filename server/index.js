@@ -131,10 +131,12 @@ app.get('/images/mylikes/:userId', (req, res, next) => {
     throw new ClientError(400, 'imageId must be a positive integer');
   }
   const sql = `
-    select "Images"."src",
-           "Images"."prompt"
+    select "src",
+           "prompt",
+           "Images"."userId",
+           "Images"."imageId"
       from "Images"
-      join "Liked_Image" using ("userId")
+      join "Liked_Image" using ("imageId")
      where "Liked_Image"."userId" = $1
   `;
 

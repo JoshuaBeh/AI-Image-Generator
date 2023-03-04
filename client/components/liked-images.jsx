@@ -9,7 +9,6 @@ export default function LikedImages({ user }) {
       .then(response => response.json())
       .then(data => {
         setImages(data);
-        console.log(userId);
       })
       .catch(error => {
         console.error(error);
