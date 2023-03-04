@@ -9,6 +9,7 @@ import SignUpPage from './pages/sign-up-page';
 import AllImagesPage from './pages/all-images-page';
 import SelectedImagePage from './pages/selected-image-page';
 import LikedImagesPage from './pages/liked-images-page';
+import GalleryPage from './pages/gallery-page';
 import Navbar from './components/navbar';
 import MobileNavbar from './components/mobileNavbar';
 export default function App() {
@@ -68,6 +69,9 @@ export default function App() {
     }
     if (path === 'my-likes') {
       return <LikedImagesPage />;
+    }
+    if (path === 'my-gallery') {
+      return <GalleryPage />;
     }
   }
 

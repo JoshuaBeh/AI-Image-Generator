@@ -12,7 +12,7 @@ export default function MobileNavbar() {
             <p>From Text</p>
           </a>
           <div className=''>
-            <a href="">
+            <a href="#my-gallery">
               <div className='center'>
                 <i className="fa-regular fa-boxes-stacked" />
               </div>

@@ -24,7 +24,7 @@ export default function Navbar() {
             <p>From Text</p>
           </a>
           <div className='icon-wrapper'>
-            <a href="">
+            <a href="#my-gallery">
               <div className='center'>
                 <i className="fa-regular fa-boxes-stacked" />
               </div>
