@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import MappedImages from './mapped-images';
 
 export default function AllImages({ user }) {
-  const [images, setImages] = useState();
+  const [images, setImages] = useState([]);
 
   useEffect(() => {
     fetch('/images')
@@ -19,29 +20,14 @@ export default function AllImages({ user }) {
         <h1 className='green'>All Images</h1>
       </div>
       <div className='row flex-wrap'>
-
         {
-          // If images exists, render each image in reverse order
-          images?.slice(0).reverse().map(image => (
+          images?.map(image => (
             <div key={image.imageId} className='col-25'>
-              <Image key={image.imageId} image={image} />
+              <MappedImages key={image.imageId} image={image} />
             </div>
           ))
           }
-
       </div>
     </>
-  );
-}
-
-function Image({ image, handleClick }) {
-  const { imageId } = image;
-  return (
-    <div className='image wrapper ml-1 mr-1 mb-1'>
-      <a href={`#images?imageId=${imageId}`}>
-        <img className='list-img' src={'/images/' + image.src} alt={image.prompt} />
-      </a>
-    </div>
-
   );
 }

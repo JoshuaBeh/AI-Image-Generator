@@ -24,6 +24,7 @@ app.get('/images', (req, res, next) => {
   const sql = `
     select *
     from "Images"
+    order by "imageId" desc
   `;
 
   db.query(sql)
@@ -127,7 +128,7 @@ app.get('/images/:imageId/likedImage', (req, res, next) => {
 
 app.get('/images/mylikes/:userId', (req, res, next) => {
   const userId = Number(req.params.userId);
-  if (!userId || userId === 0) {
+  if (!userId) {
     throw new ClientError(400, 'imageId must be a positive integer');
   }
   const sql = `
@@ -138,6 +139,7 @@ app.get('/images/mylikes/:userId', (req, res, next) => {
       from "Images"
       join "Liked_Image" using ("imageId")
      where "Liked_Image"."userId" = $1
+     order by id desc;
   `;
 
   const params = [userId];

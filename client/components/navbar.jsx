@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import AppContext from '../lib/app-context';
+import SignInButton from './sign-in-button';
 
 export default function Navbar() {
   const { user, handleSignOut } = useContext(AppContext);
@@ -46,16 +47,5 @@ export default function Navbar() {
         </div>
       </div>
     </div>
-  );
-}
-
-function SignInButton({ user, handleSignOut }) {
-  if (user) {
-    return (
-      <button className='sign-in-button' onClick={handleSignOut}>Sign Out</button>
-    );
-  }
-  return (
-    <a className='sign-in-button' href='#sign-in'>Sign In</a>
   );
 }

@@ -9,8 +9,10 @@ import SignUpPage from './pages/sign-up-page';
 import AllImagesPage from './pages/all-images-page';
 import SelectedImagePage from './pages/selected-image-page';
 import LikedImagesPage from './pages/liked-images-page';
+import Navbar from './components/navbar';
+import MobileNavbar from './components/mobileNavbar';
 export default function App() {
-  const [user, setUser] = useState(0);
+  const [user, setUser] = useState();
   const [route, setRoute] = useState(parseRoute(window.location.hash));
   const [src, setSrc] = useState('');
   const [prompt, setPrompt] = useState('');
@@ -33,11 +35,13 @@ export default function App() {
   function handleSignIn(data) {
     const { user, token } = data;
     window.localStorage.setItem('user-token', token);
+    window.localStorage.setItem('user-id', JSON.stringify(user));
     setUser(user);
   }
 
   function handleSignOut() {
     window.localStorage.removeItem('user-token');
+    window.localStorage.removeItem('user-id');
     setUser(undefined);
   }
 
@@ -70,7 +74,9 @@ export default function App() {
   const contextValue = { user, handleSignIn, handleSignOut, src, setSrc, size, setSize, prompt, setPrompt, username, setUsername, password, setPassword, currImg, setCurrImg };
   return (
     <AppContext.Provider value={contextValue}>
+      <Navbar />
       { renderPage() }
+      <MobileNavbar/>
     </AppContext.Provider>
   );
 }
