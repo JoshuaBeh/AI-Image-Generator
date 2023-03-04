@@ -125,6 +125,27 @@ app.get('/images/:imageId/likedImage', (req, res, next) => {
     .catch(error => next(error));
 });
 
+app.get('/images/mylikes/:userId', (req, res, next) => {
+  const userId = Number(req.params.userId);
+  if (!userId || userId === 0) {
+    throw new ClientError(400, 'imageId must be a positive integer');
+  }
+  const sql = `
+    select "Images"."src",
+           "Images"."prompt"
+      from "Images"
+      join "Liked_Image" using ("userId")
+     where "Liked_Image"."userId" = $1
+  `;
+
+  const params = [userId];
+  db.query(sql, params)
+    .then(result => {
+      res.status(200).json(result.rows);
+    })
+    .catch(error => next(error));
+});
+
 app.post('/sign-up', (req, res, next) => {
   const { username, password } = req.body;
   if (!username || !password) {

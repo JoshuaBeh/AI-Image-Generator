@@ -8,8 +8,9 @@ import SignInPage from './pages/sign-in-page';
 import SignUpPage from './pages/sign-up-page';
 import AllImagesPage from './pages/all-images-page';
 import SelectedImagePage from './pages/selected-image-page';
+import LikedImagesPage from './pages/liked-images-page';
 export default function App() {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(0);
   const [route, setRoute] = useState(parseRoute(window.location.hash));
   const [src, setSrc] = useState('');
   const [prompt, setPrompt] = useState('');
@@ -60,6 +61,9 @@ export default function App() {
     if (path === 'images') {
       const imageId = route.params.get('imageId');
       return <SelectedImagePage imageId={imageId}/>;
+    }
+    if (path === 'my-likes') {
+      return <LikedImagesPage />;
     }
   }
 

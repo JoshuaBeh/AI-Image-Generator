@@ -10,7 +10,9 @@ export default function SelectedImage({ imageId, user }) {
   useEffect(() => {
     fetch(`/images/${imageId}`)
       .then(response => response.json())
-      .then(data => setImage(data))
+      .then(data => {
+        setImage(data);
+      })
       .catch(error => console.error(error));
   }, [imageId]);
 

@@ -12,16 +12,20 @@ export default function MobileNavbar() {
             <p>From Text</p>
           </a>
           <div className=''>
-            <div className='center'>
-              <i className="fa-regular fa-boxes-stacked" />
-            </div>
-            <p>Gallery</p>
+            <a href="">
+              <div className='center'>
+                <i className="fa-regular fa-boxes-stacked" />
+              </div>
+              <p>Gallery</p>
+            </a>
           </div>
           <div className=''>
-            <div className='center'>
-              <i className="fa-regular fa-heart" />
-            </div>
-            <p>My Likes</p>
+            <a href="#my-likes">
+              <div className='center'>
+                <i className="fa-regular fa-heart" />
+              </div>
+              <p>My Likes</p>
+            </a>
           </div>
         </div>
       </div>
