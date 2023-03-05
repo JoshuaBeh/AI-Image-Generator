@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { ThreeCircles } from 'react-loader-spinner';
+import formatCreatedAt from '../lib/format-created-at';
 
-export default function UserInput({ setSrc, prompt, setPrompt, size, setSize, user, setCurrImg }) {
+export default function UserInput({ setSrc, prompt, setPrompt, size, setSize, user, setCurrImg, setCreatedAt }) {
   const [loading, setLoading] = useState(false);
   function handleSubmit(event) {
     event.preventDefault();
@@ -36,7 +37,11 @@ export default function UserInput({ setSrc, prompt, setPrompt, size, setSize, us
           };
           fetch('/images', userOptions)
             .then(response => response.json())
-            .then(data => setCurrImg(data.imageId))
+            .then(data => {
+              setCurrImg(data.imageId);
+              const date = formatCreatedAt(data.createdAt);
+              setCreatedAt(date);
+            })
             .catch(error => {
               console.error(error);
             });

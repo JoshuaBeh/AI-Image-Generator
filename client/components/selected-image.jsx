@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import likeButton from '../lib/like-button';
 import LikeButton from './like-button';
+import formatCreatedAt from '../lib/format-created-at';
 
 export default function SelectedImage({ imageId, user }) {
   const [image, setImage] = useState('');
@@ -11,6 +12,7 @@ export default function SelectedImage({ imageId, user }) {
     fetch(`/images/${imageId}`)
       .then(response => response.json())
       .then(data => {
+        data.createdAt = formatCreatedAt(data.createdAt);
         setImage(data);
       })
       .catch(error => console.error(error));
@@ -53,7 +55,7 @@ export default function SelectedImage({ imageId, user }) {
     }
   };
   const { heartColor, heartFill } = switchClasses[isLiked ? 'liked' : 'unliked'];
-  const { src, prompt } = image;
+  const { src, prompt, createdAt, username } = image;
   return (
     <div className='row center flex-column mt-2 mr-1 ml-1'>
       <div className='relative'>
@@ -61,7 +63,11 @@ export default function SelectedImage({ imageId, user }) {
         <LikeButton handleButtonClick={handleButtonClick} heartFill={heartFill} heartColor={heartColor} />
         <div>
           <p className='prompt-size white mt-2 mb-05'>Prompt</p>
-          <p className='text-center prompt-size grey mb-2'>{prompt}</p>
+          <p className='text-center prompt-size grey'>{prompt}</p>
+          <p className='prompt-size white mt-1 mb-05'>Created By</p>
+          <p className='text-center prompt-size grey'>{username}</p>
+          <p className='prompt-size white mt-1 mb-05'>Created At</p>
+          <p className='text-center prompt-size grey mb-2'>{createdAt}</p>
         </div>
       </div>
     </div>

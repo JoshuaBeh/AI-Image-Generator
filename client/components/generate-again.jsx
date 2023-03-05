@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { ThreeCircles } from 'react-loader-spinner';
 import likeButton from '../lib/like-button';
 import LikeButton from './like-button';
+import formatCreatedAt from '../lib/format-created-at';
 
-export default function GenerateAgain({ src, setSrc, prompt, setPrompt, size, user, currImg, setCurrImg }) {
+export default function GenerateAgain({ src, setSrc, prompt, setPrompt, size, user, currImg, setCurrImg, createdAt, setCreatedAt }) {
   const [loading, setLoading] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
 
@@ -63,7 +64,11 @@ export default function GenerateAgain({ src, setSrc, prompt, setPrompt, size, us
           };
           fetch('/images', userOptions)
             .then(response => response.json())
-            .then(data => setCurrImg(data.imageId))
+            .then(data => {
+              setCurrImg(data.imageId);
+              const date = formatCreatedAt(data.createdAt);
+              setCreatedAt(date);
+            })
             .catch(error => {
               console.error(error);
             });
@@ -105,7 +110,9 @@ export default function GenerateAgain({ src, setSrc, prompt, setPrompt, size, us
             <LikeButton handleButtonClick={handleButtonClick} heartFill={heartFill} heartColor={heartColor} />
             <div>
               <p className='prompt-size white mt-2 mb-05'>Prompt</p>
-              <p className='text-center prompt-size grey mb-2'>{prompt}</p>
+              <p className='text-center prompt-size grey'>{prompt}</p>
+              <p className='prompt-size white mt-1 mb-05'>Created At</p>
+              <p className='text-center prompt-size grey mb-2'>{createdAt}</p>
             </div>
           </div>
         </div>

@@ -21,6 +21,7 @@ export default function App() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [currImg, setCurrImg] = useState(0);
+  const [createdAt, setCreatedAt] = useState('');
 
   useEffect(() => {
     const token = window.localStorage.getItem('user-token');
@@ -75,7 +76,7 @@ export default function App() {
     }
   }
 
-  const contextValue = { user, handleSignIn, handleSignOut, src, setSrc, size, setSize, prompt, setPrompt, username, setUsername, password, setPassword, currImg, setCurrImg };
+  const contextValue = { user, handleSignIn, handleSignOut, src, setSrc, size, setSize, prompt, setPrompt, username, setUsername, password, setPassword, currImg, setCurrImg, createdAt, setCreatedAt };
   return (
     <AppContext.Provider value={contextValue}>
       <Navbar />

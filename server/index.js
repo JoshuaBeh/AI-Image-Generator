@@ -62,10 +62,13 @@ app.get('/images/:imageId', (req, res, next) => {
   }
   const sql = `
     select "imageId",
-           "userId",
+           "Images"."userId",
            "src",
-           "prompt"
+           "prompt",
+           "Images"."createdAt",
+           "Users"."username"
       from "Images"
+      join "Users" using ("userId")
      where "imageId" = $1
   `;
   const params = [imageId];
