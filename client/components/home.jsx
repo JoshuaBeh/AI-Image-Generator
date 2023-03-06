@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ThreeCircles } from 'react-loader-spinner';
 import formatCreatedAt from '../lib/format-created-at';
 
-export default function UserInput({ setSrc, prompt, setPrompt, size, setSize, user, setCurrImg, setCreatedAt }) {
+export default function Home({ setSrc, prompt, setPrompt, size, setSize, user, setCurrImg, setCreatedAt }) {
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
@@ -48,7 +48,7 @@ export default function UserInput({ setSrc, prompt, setPrompt, size, setSize, us
               const date = formatCreatedAt(data.createdAt);
               setCreatedAt(date);
               setLoading(false);
-              window.location.hash = 'temp';
+              window.location.hash = 'generate';
             })
             .catch(error => {
               setLoading(false);
@@ -80,12 +80,18 @@ export default function UserInput({ setSrc, prompt, setPrompt, size, setSize, us
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <div className='row mt-2 ml-1 mr-1'>
+        <div className='row mt-8 ml-1 mr-1'>
+          <div className='col-full'>
+            <h1 className='green t-align-center'>Text to Image with AI Image Generator</h1>
+            <h3 className='t-align-center white'>Convert words to images in seconds with DALL.E 2</h3>
+          </div>
+        </div>
+        <div className='row mt-2 ml-1-5 mr-1-5'>
           <div className='col-full'>
             <div className='center'>
               <textarea required onChange={handleInput} type="text" className='generate-input' placeholder='Describe What you want to see. Be as descriptive as possible.'/>
             </div>
-            <div className='select-row center mt-1'>
+            <div className='select-row center mt-2'>
               <button className={button} type='sumbit'>Generate</button>
               <ThreeCircles
               height="60"

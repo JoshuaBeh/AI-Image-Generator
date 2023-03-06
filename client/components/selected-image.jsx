@@ -2,20 +2,27 @@ import React, { useState, useEffect } from 'react';
 import likeButton from '../lib/like-button';
 import LikeButton from './like-button';
 import formatCreatedAt from '../lib/format-created-at';
+import IsLoadingSpinner from './is-loading-spinner';
 
 export default function SelectedImage({ imageId, user }) {
   const [image, setImage] = useState('');
   const [isLiked, setIsLiked] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   // Fetch the selected image's row from the database
   useEffect(() => {
+    setIsLoading(true);
     fetch(`/images/${imageId}`)
       .then(response => response.json())
       .then(data => {
+        setIsLoading(false);
         data.createdAt = formatCreatedAt(data.createdAt);
         setImage(data);
       })
-      .catch(error => console.error(error));
+      .catch(error => {
+        setIsLoading(false);
+        console.error(error);
+      });
   }, [imageId]);
 
   // Fetch a list of all liked images and check to see if the
@@ -54,6 +61,13 @@ export default function SelectedImage({ imageId, user }) {
       heartFill: 'fa-regular'
     }
   };
+
+  if (isLoading) {
+    return (
+      <IsLoadingSpinner />
+    );
+  }
+
   const { heartColor, heartFill } = switchClasses[isLiked ? 'liked' : 'unliked'];
   const { src, prompt, createdAt, username } = image;
   return (

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Home from './pages/home';
+import HomePage from './pages/homepage';
 import jwtDecode from 'jwt-decode';
 import AppContext from './lib/app-context';
 import GeneratedImage from './pages/generated-Image';
@@ -50,9 +50,9 @@ export default function App() {
   function renderPage() {
     const { path } = route;
     if (path === '') {
-      return <Home />;
+      return <HomePage />;
     }
-    if (path === 'temp') {
+    if (path === 'generate') {
       return <GeneratedImage />;
     }
     if (path === 'sign-in') {

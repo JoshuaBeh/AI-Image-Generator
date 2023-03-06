@@ -1,19 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import MappedImages from './mapped-images';
+import IsLoadingSpinner from './is-loading-spinner';
 
 export default function AllImages({ user }) {
   const [images, setImages] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
     fetch('/images')
       .then(response => response.json())
       .then(data => {
         setImages(data);
+        setIsLoading(false);
       })
       .catch(error => {
         console.error(error);
+        setIsLoading(false);
       });
   }, []);
+
+  if (isLoading) {
+    return (
+      <IsLoadingSpinner />
+    );
+  }
   return (
     <>
       <div className='row center'>

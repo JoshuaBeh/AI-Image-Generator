@@ -76,6 +76,7 @@ export default function GenerateAgain({ src, setSrc, prompt, setPrompt, size, us
             })
             .catch(error => {
               console.error(error);
+              setErrorMsg(error.message);
             });
         }
       });

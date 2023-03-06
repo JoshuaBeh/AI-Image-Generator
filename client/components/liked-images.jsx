@@ -2,30 +2,42 @@
 import React, { useState, useEffect } from 'react';
 import Redirect from './redirect';
 import MappedImages from './mapped-images';
+import IsLoadingSpinner from './is-loading-spinner';
 
 export default function LikedImages() {
   const [images, setImages] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const userGet = window.localStorage.getItem('user-id');
   // If the userId doesn't exist, use 0
   const { userId } = JSON.parse(userGet) || 0;
 
   // Fetch the current user's liked images
   useEffect(() => {
+    setIsLoading(true);
     fetch(`/images/mylikes/${userId}`)
       .then(response => response.json())
       .then(data => {
+        setIsLoading(false);
         if (data[0].userId) {
           setImages(data);
         }
       })
       .catch(error => {
+        setIsLoading(false);
         console.error(error);
       });
   }, [userId]);
 
   if (!userGet) {
-    return <Redirect to=''/>;
+    return <Redirect to='#sign-in'/>;
   }
+
+  if (isLoading) {
+    return (
+      <IsLoadingSpinner />
+    );
+  }
+
   if (images.length === 0) {
     return (
       <div className='row t-align-center mr-1 ml-1 center'>
