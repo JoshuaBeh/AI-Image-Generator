@@ -4,7 +4,7 @@ export default function LikeButton({ handleButtonClick, heartFill, heartColor })
     <button
       type='button'
       onClick={handleButtonClick}
-      className='absolute like-button'>Like
+      className='absolute like-button'>Like&nbsp;
       <i className={`${heartFill} ${heartColor} fa-heart like-heart`} aria-hidden="true" />
     </button>
   );

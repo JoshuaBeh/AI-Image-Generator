@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ThreeCircles } from 'react-loader-spinner';
 import formatCreatedAt from '../lib/format-created-at';
+import Select from './select';
 
 export default function Home({ setSrc, prompt, setPrompt, size, setSize, user, setCurrImg, setCreatedAt }) {
   const [loading, setLoading] = useState(false);
@@ -114,15 +115,5 @@ export default function Home({ setSrc, prompt, setPrompt, size, setSize, user, s
         <h1 className='error-message red'>{errorMsg}</h1>
       </div>
     </>
-  );
-}
-
-function Select({ onSelect }) {
-  return (
-    <select name="size" id="size" className='size-button' onChange={onSelect}>
-      <option value="Small">Small</option>
-      <option value="Medium">Medium</option>
-      <option className='large' value="Large">Large</option>
-    </select>
   );
 }
