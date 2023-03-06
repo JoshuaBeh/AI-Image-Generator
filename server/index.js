@@ -55,7 +55,7 @@ app.post('/images', (req, res, next) => {
     });
 });
 
-app.get('/images/:imageId', (req, res, next) => {
+app.get('/api/images/:imageId', (req, res, next) => {
   const imageId = Number(req.params.imageId);
   if (!imageId) {
     throw new ClientError(400, 'imageId must be a positive integer');

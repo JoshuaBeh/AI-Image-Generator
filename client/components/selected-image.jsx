@@ -5,14 +5,22 @@ import formatCreatedAt from '../lib/format-created-at';
 import IsLoadingSpinner from './is-loading-spinner';
 
 export default function SelectedImage({ imageId, user }) {
-  const [image, setImage] = useState('');
+  const [image, setImage] = useState();
   const [isLiked, setIsLiked] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   // Fetch the selected image's row from the database
   useEffect(() => {
+
     setIsLoading(true);
-    fetch(`/images/${imageId}`)
+    fetch(`/api/images/${imageId}`)
+      // .then(response => {
+      //   if (!response.ok) {
+      //     console.log(response);
+      //     throw new Error(response.message);
+      //   }
+      //   return response.json();
+      // })
       .then(response => response.json())
       .then(data => {
         setIsLoading(false);
@@ -62,7 +70,7 @@ export default function SelectedImage({ imageId, user }) {
     }
   };
 
-  if (isLoading) {
+  if (isLoading || !image) {
     return (
       <IsLoadingSpinner />
     );

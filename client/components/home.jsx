@@ -7,6 +7,8 @@ export default function Home({ setSrc, prompt, setPrompt, size, setSize, user, s
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
+  // Takes the prompt and size from the user and generates the image
+  // If the user is signed in, it will add the image to the database
   function handleSubmit(event) {
     event.preventDefault();
     setErrorMsg('');
