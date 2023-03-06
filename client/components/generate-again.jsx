@@ -7,6 +7,7 @@ import formatCreatedAt from '../lib/format-created-at';
 export default function GenerateAgain({ src, setSrc, prompt, setPrompt, size, user, currImg, setCurrImg, createdAt, setCreatedAt }) {
   const [loading, setLoading] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
 
   // Fetch a list of all liked images and check to see if the
   // selected image is liked by the current user
@@ -49,8 +50,12 @@ export default function GenerateAgain({ src, setSrc, prompt, setPrompt, size, us
     fetch('/openai/generateImage', options)
       .then(response => response.json())
       .then(data => {
-        setSrc(data.url);
         setLoading(false);
+        if (data.success === false) {
+          setErrorMsg(data.message.error.message);
+          return;
+        }
+        setSrc(data.url);
 
         if (user) {
           const { userId } = user;
@@ -73,9 +78,6 @@ export default function GenerateAgain({ src, setSrc, prompt, setPrompt, size, us
               console.error(error);
             });
         }
-      })
-      .catch(error => {
-        console.error(error);
       });
   }
 
@@ -102,24 +104,25 @@ export default function GenerateAgain({ src, setSrc, prompt, setPrompt, size, us
   const { heartColor, heartFill } = likeImage[isLiked ? 'liked' : 'unliked'];
   const { button, spinner } = loadingButton[loading ? 'isLoading' : 'loaded'];
   return (
-    <form onSubmit={handleSubmit}>
-      <div className='row mt-2 mr-1 ml-1'>
-        <div className='col-full center'>
-          <div className='relative'>
-            <img className='selected-img' src={'/images/' + src}/>
-            <LikeButton handleButtonClick={handleButtonClick} heartFill={heartFill} heartColor={heartColor} />
-            <div>
-              <p className='prompt-size white mt-2 mb-05'>Prompt</p>
-              <p className='text-center prompt-size grey'>{prompt}</p>
-              <p className='prompt-size white mt-1 mb-05'>Created At</p>
-              <p className='text-center prompt-size grey mb-2'>{createdAt}</p>
+    <>
+      <form onSubmit={handleSubmit}>
+        <div className='row mt-2 mr-1 ml-1'>
+          <div className='col-full center'>
+            <div className='relative'>
+              <img className='selected-img' src={'/images/' + src}/>
+              <LikeButton handleButtonClick={handleButtonClick} heartFill={heartFill} heartColor={heartColor} />
+              <div>
+                <p className='prompt-size white mt-2 mb-05'>Prompt</p>
+                <p className='text-center prompt-size grey'>{prompt}</p>
+                <p className='prompt-size white mt-1 mb-05'>Created At</p>
+                <p className='text-center prompt-size grey mb-2'>{createdAt}</p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div className='row'>
-        <div className='col-full center flex-column'>
-          <ThreeCircles
+        <div className='row'>
+          <div className='col-full center flex-column'>
+            <ThreeCircles
             height="60"
             width="60"
             color="#4fa94d"
@@ -131,9 +134,13 @@ export default function GenerateAgain({ src, setSrc, prompt, setPrompt, size, us
             innerCircleColor=""
             middleCircleColor=""
           />
-          <button type='submit' className={`${button} mb-2`}>Generate Again</button>
+            <button type='submit' className={`${button} mb-2`}>Generate Again</button>
+          </div>
         </div>
+      </form>
+      <div className='red center t-align-center row mr-1 ml-1 mt-2'>
+        <h1 className='error-message red'>{errorMsg}</h1>
       </div>
-    </form>
+    </>
   );
 }

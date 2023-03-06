@@ -91,6 +91,10 @@ option.large {
   height: auto;
 }
 
+.selected-img {
+  min-width: 300px;
+}
+
 @media screen and (min-width: 530px) {
   select.size-button {
     display: inline;
@@ -145,7 +149,7 @@ option.large {
 
 @media screen and (min-width: 1201px) {
   .container {
-    max-width: 1920px;
+    max-width: 1800px;
   }
 
   .col-25 {
@@ -154,5 +158,15 @@ option.large {
 
   option.large {
     display: contents;
+  }
+}
+
+@media screen and (min-width: 1801px) {
+  .container {
+    max-width: 1900px;
+  }
+
+  .col-25 {
+    width: 20%;
   }
 }

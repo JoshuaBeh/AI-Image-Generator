@@ -4,8 +4,11 @@ import formatCreatedAt from '../lib/format-created-at';
 
 export default function UserInput({ setSrc, prompt, setPrompt, size, setSize, user, setCurrImg, setCreatedAt }) {
   const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
+
   function handleSubmit(event) {
     event.preventDefault();
+    setErrorMsg('');
     const options = {
       method: 'POST',
       headers: {
@@ -22,8 +25,11 @@ export default function UserInput({ setSrc, prompt, setPrompt, size, setSize, us
       .then(response => response.json())
       .then(data => {
         setLoading(false);
+        if (data.success === false) {
+          setErrorMsg(data.message.error.message);
+          return;
+        }
         setSrc(data.url);
-        window.location.hash = 'temp';
 
         if (user) {
           const { userId } = user;
@@ -41,15 +47,14 @@ export default function UserInput({ setSrc, prompt, setPrompt, size, setSize, us
               setCurrImg(data.imageId);
               const date = formatCreatedAt(data.createdAt);
               setCreatedAt(date);
+              setLoading(false);
+              window.location.hash = 'temp';
             })
             .catch(error => {
+              setLoading(false);
               console.error(error);
             });
         }
-      })
-      .catch(error => {
-        setLoading(false);
-        console.error(error);
       });
   }
 
@@ -73,15 +78,16 @@ export default function UserInput({ setSrc, prompt, setPrompt, size, setSize, us
   };
   const { button, spinner } = switchClasses[loading ? 'isLoading' : 'loaded'];
   return (
-    <form onSubmit={handleSubmit}>
-      <div className='row mt-2 ml-1 mr-1'>
-        <div className='col-full'>
-          <div className='center'>
-            <textarea required onChange={handleInput} type="text" className='generate-input' placeholder='Describe What you want to see. Be as descriptive as possible.'/>
-          </div>
-          <div className='select-row center mt-1'>
-            <button className={button} type='sumbit'>Generate</button>
-            <ThreeCircles
+    <>
+      <form onSubmit={handleSubmit}>
+        <div className='row mt-2 ml-1 mr-1'>
+          <div className='col-full'>
+            <div className='center'>
+              <textarea required onChange={handleInput} type="text" className='generate-input' placeholder='Describe What you want to see. Be as descriptive as possible.'/>
+            </div>
+            <div className='select-row center mt-1'>
+              <button className={button} type='sumbit'>Generate</button>
+              <ThreeCircles
               height="60"
               width="60"
               color="#4fa94d"
@@ -93,11 +99,15 @@ export default function UserInput({ setSrc, prompt, setPrompt, size, setSize, us
               innerCircleColor=""
               middleCircleColor=""
             />
-            <Select onSelect={onSelect}/>
+              <Select onSelect={onSelect}/>
+            </div>
           </div>
         </div>
+      </form>
+      <div className='red center t-align-center row mr-1 ml-1 mt-2'>
+        <h1 className='error-message red'>{errorMsg}</h1>
       </div>
-    </form>
+    </>
   );
 }
 

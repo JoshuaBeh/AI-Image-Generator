@@ -27,7 +27,7 @@ export default function Gallery() {
   }
   if (images.length === 0) {
     return (
-      <div className='row center'>
+      <div className='row t-align-center mr-1 ml-1 center'>
         <h1 className='green'>Your generated images will be here.</h1>
       </div>
     );
