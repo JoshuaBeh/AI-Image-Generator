@@ -87,6 +87,18 @@ select:hover {
   max-width: 187px;
 }
 
+.demo-button {
+  font-size: 1.1rem;
+  margin-right: 10px;
+  border: 1px solid #62ff93;
+  background-color: #62ff93;
+  color: black;
+  padding: 10px;
+  border-radius: 4px;
+  width: 40%;
+  max-width: 120px;
+}
+
 .generate-button {
   background-color: #62ff93;
   font-family: Roboto, sans-serif;

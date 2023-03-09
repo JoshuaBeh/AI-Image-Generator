@@ -62,7 +62,7 @@ export default function SignIn({ username, setUsername, password, setPassword, u
             Don&apos;t have an account?
             <a href="#sign-up" className='green'>&nbsp;Sign up</a>
           </h4>
-          <button onClick={demoButton} className='sign-in-up-button mt-1'>Demo</button>
+          <button onClick={demoButton} className='demo-button mt-1'>Demo</button>
           <p className={`${invalidLogin} red absolute bad-login`}>Invalid Login!</p>
         </div>
       </div>
