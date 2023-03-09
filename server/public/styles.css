@@ -289,9 +289,6 @@ i.like-heart {
   padding-right: 8px;
 }
 
-@media screen and (min-width: 608px) {
-  /* .navbar {
-    background-color: #252425;
-    border-bottom: 1px solid black;
-  } */
+.bad-login {
+  top: 300px;
 }

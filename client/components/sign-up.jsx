@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 export default function SignUp({ username, setUsername, password, setPassword, user, handleSignIn }) {
-
+  const [error, setError] = useState(false);
   function handleSubmit(event) {
     event.preventDefault();
     const req = {
@@ -14,6 +14,10 @@ export default function SignUp({ username, setUsername, password, setPassword, u
     fetch('/sign-up', req)
       .then(response => response.json())
       .then(data => {
+        if (data.error) {
+          setError(true);
+          return;
+        }
         window.location.hash = 'sign-in';
         if (data.user && data.token) {
           handleSignIn(data);
@@ -22,14 +26,18 @@ export default function SignUp({ username, setUsername, password, setPassword, u
       });
   }
 
+  const invalidLogin = error ? '' : 'hidden';
   return (
     <form onSubmit={handleSubmit}>
       <div className='row'>
-        <div className='col-full center flex-column'>
+        <div className='col-full center flex-column relative'>
           <h1 className='green mt-6'>Sign Up</h1>
           <input
           className='sign-in-input mt-1'
-          onChange={event => setUsername(event.target.value)}
+          onChange={event => {
+            setUsername(event.target.value);
+            setError(false);
+          }}
           required
           autoFocus
           type="text"
@@ -38,7 +46,10 @@ export default function SignUp({ username, setUsername, password, setPassword, u
           placeholder='Username' />
           <input
           className='sign-in-input'
-          onChange={event => setPassword(event.target.value)}
+          onChange={event => {
+            setPassword(event.target.value);
+            setError(false);
+          }}
           required
           type="password"
           name='password'
@@ -49,6 +60,7 @@ export default function SignUp({ username, setUsername, password, setPassword, u
             Already have an account?
             <a href="#sign-in" className='green'>&nbsp;Sign in</a>
           </h4>
+          <p className={`${invalidLogin} red absolute bad-login`}>Username already exists!</p>
         </div>
       </div>
     </form>
