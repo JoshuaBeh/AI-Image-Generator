@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 export default function SignIn({ username, setUsername, password, setPassword, user, handleSignIn }) {
-
+  const [error, setError] = useState(false);
   function handleSubmit(event) {
     event.preventDefault();
     const req = {
@@ -14,20 +14,32 @@ export default function SignIn({ username, setUsername, password, setPassword, u
     fetch('/sign-in', req)
       .then(response => response.json())
       .then(data => {
+        if (data.error === 'invalid login') {
+          setError(true);
+        }
         if (data.user && data.token) {
           handleSignIn(data);
           window.location.hash = '';
         }
       });
   }
+  function demoButton(event) {
+    setUsername('Admin');
+    setPassword('Admin');
+    handleSubmit(event);
+  }
+  const invalidLogin = error ? '' : 'hidden';
   return (
     <form onSubmit={handleSubmit}>
       <div className='row'>
-        <div className='col-full center flex-column'>
+        <div className='col-full center flex-column relative'>
           <h1 className='green mt-6'>Sign In</h1>
           <input
          className='sign-in-input mt-1'
-         onChange={event => setUsername(event.target.value)}
+         onChange={event => {
+           setUsername(event.target.value);
+           setError(false);
+         }}
          required
          autoFocus
          type="text"
@@ -36,7 +48,10 @@ export default function SignIn({ username, setUsername, password, setPassword, u
          placeholder='Username' />
           <input
          className='sign-in-input'
-         onChange={event => setPassword(event.target.value)}
+         onChange={event => {
+           setPassword(event.target.value);
+           setError(false);
+         }}
          required
          type="password"
          name='password'
@@ -47,6 +62,8 @@ export default function SignIn({ username, setUsername, password, setPassword, u
             Don&apos;t have an account?
             <a href="#sign-up" className='green'>&nbsp;Sign up</a>
           </h4>
+          <button onClick={demoButton} className='sign-in-up-button mt-1'>Demo</button>
+          <p className={`${invalidLogin} red absolute bad-login`}>Invalid Login!</p>
         </div>
       </div>
     </form>
