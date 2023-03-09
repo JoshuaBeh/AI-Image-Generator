@@ -26,8 +26,9 @@ export default function SignUp({ username, setUsername, password, setPassword, u
     <form onSubmit={handleSubmit}>
       <div className='row'>
         <div className='col-full center flex-column'>
-          <h1 className='green'>Sign Up</h1>
+          <h1 className='green mt-6'>Sign Up</h1>
           <input
+          className='sign-in-input mt-1'
           onChange={event => setUsername(event.target.value)}
           required
           autoFocus
@@ -36,16 +37,17 @@ export default function SignUp({ username, setUsername, password, setPassword, u
           id='username'
           placeholder='Username' />
           <input
+          className='sign-in-input'
           onChange={event => setPassword(event.target.value)}
           required
           type="password"
           name='password'
           id='password'
           placeholder='Password' />
-          <button type='submit'>Sign Up</button>
-          <h4 className='white'>
+          <button type='submit' className='sign-in-up-button mt-2'>Register</button>
+          <h4 className='white mt-2'>
             Already have an account?
-            <a href="#sign-in" className='green'>Sign in</a>
+            <a href="#sign-in" className='green'>&nbsp;Sign in</a>
           </h4>
         </div>
       </div>

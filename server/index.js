@@ -24,6 +24,7 @@ app.get('/images', (req, res, next) => {
   const sql = `
     select *
     from "Images"
+    order by "imageId" desc
   `;
 
   db.query(sql)
@@ -54,17 +55,20 @@ app.post('/images', (req, res, next) => {
     });
 });
 
-app.get('/images/:imageId', (req, res, next) => {
+app.get('/api/images/:imageId', (req, res, next) => {
   const imageId = Number(req.params.imageId);
   if (!imageId) {
     throw new ClientError(400, 'imageId must be a positive integer');
   }
   const sql = `
     select "imageId",
-           "userId",
+           "Images"."userId",
            "src",
-           "prompt"
+           "prompt",
+           "Images"."createdAt",
+           "Users"."username"
       from "Images"
+      join "Users" using ("userId")
      where "imageId" = $1
   `;
   const params = [imageId];
@@ -85,14 +89,29 @@ app.post('/images/likedImage', (req, res, next) => {
   }
   const sql = `
     insert into "Liked_Image" ("imageId", "userId")
-         select "imageId", "userId"
-           from "Images"
-          where "imageId" = $1 and "userId" = $2
+      values ($1, $2)
   `;
   const params = [imageId, userId];
   db.query(sql, params)
     .then(result => {
       res.status(201).json(result.rows[0]);
+    })
+    .catch(error => next(error));
+});
+
+app.delete('/images/likedImage', (req, res, next) => {
+  const { imageId, userId } = req.body;
+  if (!imageId || !userId) {
+    throw new ClientError(400, 'imageId and userId must be positive integers');
+  }
+  const sql = `
+    delete from "Liked_Image"
+          where "imageId" = $1 and "userId" = $2
+  `;
+  const params = [imageId, userId];
+  db.query(sql, params)
+    .then(result => {
+      res.status(204).json(result.rows[0]);
     })
     .catch(error => next(error));
 });
@@ -104,6 +123,50 @@ app.get('/images/:imageId/likedImage', (req, res, next) => {
   `;
 
   db.query(sql)
+    .then(result => {
+      res.status(200).json(result.rows);
+    })
+    .catch(error => next(error));
+});
+
+app.get('/images/mylikes/:userId', (req, res, next) => {
+  const userId = Number(req.params.userId);
+  if (!userId) {
+    throw new ClientError(400, 'imageId must be a positive integer');
+  }
+  const sql = `
+    select "src",
+           "prompt",
+           "Images"."userId",
+           "Images"."imageId"
+      from "Images"
+      join "Liked_Image" using ("imageId")
+     where "Liked_Image"."userId" = $1
+     order by id desc;
+  `;
+
+  const params = [userId];
+  db.query(sql, params)
+    .then(result => {
+      res.status(200).json(result.rows);
+    })
+    .catch(error => next(error));
+});
+
+app.get('/images/mygallery/:userId', (req, res, next) => {
+  const userId = Number(req.params.userId);
+  if (!userId) {
+    throw new ClientError(400, 'imageId must be a positive integer');
+  }
+  const sql = `
+    select *
+      from "Images"
+      where "userId" = $1
+      order by "imageId" desc
+  `;
+
+  const params = [userId];
+  db.query(sql, params)
     .then(result => {
       res.status(200).json(result.rows);
     })

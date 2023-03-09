@@ -1,9 +1,26 @@
 import React, { useContext } from 'react';
 import AppContext from '../lib/app-context';
+import SignInButton from './sign-in-button';
 
 export default function Navbar() {
   const { user, handleSignOut } = useContext(AppContext);
-
+  const hash = window.location.hash;
+  const underline = {
+    allImages: '',
+    fromText: '',
+    myLikes: '',
+    gallery: ''
+  };
+  let { fromText, myLikes, gallery } = underline;
+  if (hash === '') {
+    fromText = 'underline';
+  }
+  if (hash === '#my-likes') {
+    myLikes = 'underline';
+  }
+  if (hash === '#my-gallery') {
+    gallery = 'underline';
+  }
   return (
     <div className='row navbar'>
       <div className='col-half inline'>
@@ -16,23 +33,27 @@ export default function Navbar() {
           </i>
         </div>
         <div className='justify-around inline'>
-          <a className='icon-wrapper' href=''>
+          <a className={`${fromText} icon-wrapper`} href=''>
             <div className='center'>
               <i className="fa-regular fa-image" />
             </div>
             <p>From Text</p>
           </a>
-          <div className='icon-wrapper'>
-            <div className='center'>
-              <i className="fa-regular fa-boxes-stacked" />
-            </div>
-            <p>Gallery</p>
+          <div className={`${gallery} icon-wrapper`}>
+            <a href="#my-gallery">
+              <div className='center'>
+                <i className="fa-regular fa-boxes-stacked" />
+              </div>
+              <p>Gallery</p>
+            </a>
           </div>
-          <div className='icon-wrapper'>
-            <div className='center'>
-              <i className="fa-regular fa-heart" />
-            </div>
-            <p>My Likes</p>
+          <div className={`${myLikes} icon-wrapper`}>
+            <a href="#my-likes">
+              <div className='center'>
+                <i className="fa-regular fa-heart" />
+              </div>
+              <p>My Likes</p>
+            </a>
           </div>
         </div>
       </div>
@@ -42,16 +63,5 @@ export default function Navbar() {
         </div>
       </div>
     </div>
-  );
-}
-
-function SignInButton({ user, handleSignOut }) {
-  if (user) {
-    return (
-      <button className='sign-in-button' onClick={handleSignOut}>Sign Out</button>
-    );
-  }
-  return (
-    <a className='sign-in-button' href='#sign-in'>Sign In</a>
   );
 }
