@@ -33,6 +33,7 @@ export default function Home({ setSrc, prompt, setPrompt, size, setSize, user, s
           return;
         }
         setSrc(data.file);
+        window.location.hash = 'generate';
 
         if (user) {
           const src = data.file;
@@ -50,8 +51,6 @@ export default function Home({ setSrc, prompt, setPrompt, size, setSize, user, s
               setCurrImg(data.imageId);
               const date = formatCreatedAt(data.createdAt);
               setCreatedAt(date);
-              setLoading(false);
-              window.location.hash = 'generate';
             })
             .catch(error => {
               setLoading(false);
