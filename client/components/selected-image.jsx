@@ -81,7 +81,7 @@ export default function SelectedImage({ imageId, user }) {
   return (
     <div className='row center flex-column mt-2 mr-1 ml-1'>
       <div className='relative'>
-        <img className='selected-img' src={`/images/${src}`} alt={prompt} />
+        <img className='selected-img' src={src} alt={prompt} />
         <LikeButton handleButtonClick={handleButtonClick} heartFill={heartFill} heartColor={heartColor} />
         <div>
           <p className='prompt-size white mt-2 mb-05'>Prompt</p>
