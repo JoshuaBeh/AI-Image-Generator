@@ -55,11 +55,11 @@ export default function GenerateAgain({ src, setSrc, prompt, setPrompt, size, us
           setErrorMsg(data.message.error.message);
           return;
         }
-        setSrc(data.url);
+        setSrc(data.file);
 
         if (user) {
           const { userId } = user;
-          const src = data.url;
+          const src = data.file;
           const userOptions = {
             method: 'POST',
             headers: {
@@ -110,7 +110,7 @@ export default function GenerateAgain({ src, setSrc, prompt, setPrompt, size, us
         <div className='row mt-2 mr-1 ml-1'>
           <div className='col-full center'>
             <div className='relative'>
-              <img className='selected-img' src={'/images/' + src}/>
+              <img className='selected-img' src={src}/>
               <LikeButton handleButtonClick={handleButtonClick} heartFill={heartFill} heartColor={heartColor} />
               <div>
                 <p className='prompt-size white mt-2 mb-05'>Prompt</p>

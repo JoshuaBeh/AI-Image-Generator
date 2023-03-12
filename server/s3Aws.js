@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-/* eslint-disable no-unused-vars */
 const fs = require('fs');
 const util = require('util');
 require('dotenv/config');
@@ -17,24 +16,20 @@ const s3 = new S3({
 });
 
 const uploadFile = async (data, urlName) => {
-  await s3.upload({
+  return await s3.upload({
     Bucket: bucketName,
     Body: data,
     Key: urlName
   }).promise();
-  return urlName;
 };
 
-const testing = async () => {
-  const src = Date.now() + '.jpg';
-  const fileName = 'server/public/images/1678600474917.jpg';
+const s3AwsUpload = async (fileName, src) => {
   try {
     const data = await readFile(fileName);
-    console.log(data);
     const url = await uploadFile(data, src);
-    console.log(url);
+    return url;
   } catch (err) {
     console.log(err);
   }
 };
-module.exports = { uploadFile };
+module.exports = { s3AwsUpload };

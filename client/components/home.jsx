@@ -32,11 +32,11 @@ export default function Home({ setSrc, prompt, setPrompt, size, setSize, user, s
           setErrorMsg(data.message.error.message);
           return;
         }
-        setSrc(data.url);
+        setSrc(data.file);
 
         if (user) {
+          const src = data.file;
           const { userId } = user;
-          const src = data.url;
           const userOptions = {
             method: 'POST',
             headers: {
