@@ -1,10 +1,14 @@
 /* eslint-disable no-console */
+const util = require('util');
 const fs = require('fs');
+const { uploadFile } = require('../s3Aws');
 const { Configuration, OpenAIApi } = require('openai');
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY
 });
 const openai = new OpenAIApi(configuration);
+
+const readFile = util.promisify(fs.readFile);
 
 const generateImage = async (req, res) => {
   const { prompt, size } = req.body;
@@ -30,7 +34,22 @@ const generateImage = async (req, res) => {
     // Generate a unique filename for the image and write it to the server's public/images directory
     const src = Date.now() + '.jpg';
     const fileName = `server/public/images/${src}`;
-    fs.writeFileSync(fileName, buffer);
+    await fs.writeFileSync(fileName, buffer);
+    // const data = await readFile(fileName);
+    // console.log(data);
+    // const url = await uploadFile(data, src);
+
+    const testing = async () => {
+      try {
+        const data = await readFile(fileName);
+        console.log(data);
+        const url = await uploadFile(data, src);
+        console.log(url);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    await testing();
     res.status(200).json({
       success: true,
       url: src
@@ -40,6 +59,7 @@ const generateImage = async (req, res) => {
       console.log(err.response.status);
       console.log(err.response.data);
     } else {
+      console.log(err);
       console.log(err.message);
     }
     res.status(400).json({
