@@ -116,6 +116,24 @@ app.delete('/images/likedImage', (req, res, next) => {
     .catch(error => next(error));
 });
 
+app.get('/images/topImages', (req, res, next) => {
+  const sql = `
+    select count("imageId") as likes,
+           "Images"."src",
+           "Images"."prompt",
+           "Images"."imageId"
+    from "Images"
+    join "Liked_Image" using ("imageId")
+    group by ("src", "prompt", "Images"."imageId")
+    order by "likes" desc
+  `;
+  db.query(sql)
+    .then(result => {
+      res.status(200).json(result.rows);
+    })
+    .catch(error => next(error));
+});
+
 app.get('/images/:imageId/likedImage', (req, res, next) => {
   const sql = `
     select *

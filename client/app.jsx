@@ -10,6 +10,7 @@ import AllImagesPage from './pages/all-images-page';
 import SelectedImagePage from './pages/selected-image-page';
 import LikedImagesPage from './pages/liked-images-page';
 import GalleryPage from './pages/gallery-page';
+import TopImagesPage from './pages/top-images-page';
 import Navbar from './components/navbar';
 import MobileNavbar from './components/mobileNavbar';
 export default function App() {
@@ -73,6 +74,9 @@ export default function App() {
     }
     if (path === 'my-gallery') {
       return <GalleryPage />;
+    }
+    if (path === 'top-images') {
+      return <TopImagesPage/>;
     }
   }
 
