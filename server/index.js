@@ -120,10 +120,11 @@ app.get('/images/topImages', (req, res, next) => {
   const sql = `
     select count("imageId") as likes,
            "Images"."src",
-           "Images"."prompt"
+           "Images"."prompt",
+           "Images"."imageId"
     from "Images"
     join "Liked_Image" using ("imageId")
-    group by ("src", "prompt")
+    group by ("src", "prompt", "Images"."imageId")
     order by "likes" desc
   `;
   db.query(sql)

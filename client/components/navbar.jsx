@@ -28,7 +28,7 @@ export default function Navbar() {
           <i className='fa-solid fa-bars pl-10 dropdown ptb-20'>
             <div className='dropdown-content'>
               <a href='#all-images'>All Images</a>
-              <a >Top Images</a>
+              <a href='#top-images'>Top Images</a>
             </div>
           </i>
         </div>
