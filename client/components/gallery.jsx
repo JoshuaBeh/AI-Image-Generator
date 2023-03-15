@@ -12,19 +12,21 @@ export default function Gallery() {
 
   // Fetch the current user's liked images
   useEffect(() => {
-    setIsLoading(true);
-    fetch(`/images/mygallery/${userId}`)
-      .then(response => response.json())
-      .then(data => {
-        setIsLoading(false);
-        if (data[0].userId) {
-          setImages(data);
-        }
-      })
-      .catch(error => {
-        setIsLoading(false);
-        console.error(error);
-      });
+    if (userId) {
+      setIsLoading(true);
+      fetch(`/images/mygallery/${userId}`)
+        .then(response => response.json())
+        .then(data => {
+          setIsLoading(false);
+          if (data[0].userId) {
+            setImages(data);
+          }
+        })
+        .catch(error => {
+          setIsLoading(false);
+          console.error(error);
+        });
+    }
   }, [userId]);
 
   if (!userGet) {
