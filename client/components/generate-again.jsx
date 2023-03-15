@@ -102,6 +102,7 @@ export default function GenerateAgain({ src, setSrc, prompt, setPrompt, size, us
       spinner: 'hidden'
     }
   };
+  const isHidden = user ? '' : 'hidden';
   const { heartColor, heartFill } = likeImage[isLiked ? 'liked' : 'unliked'];
   const { button, spinner } = loadingButton[loading ? 'isLoading' : 'loaded'];
   return (
@@ -111,11 +112,11 @@ export default function GenerateAgain({ src, setSrc, prompt, setPrompt, size, us
           <div className='col-full center'>
             <div className='relative'>
               <img className='selected-img' src={src}/>
-              <LikeButton handleButtonClick={handleButtonClick} heartFill={heartFill} heartColor={heartColor} />
+              <LikeButton handleButtonClick={handleButtonClick} heartFill={heartFill} heartColor={heartColor} isHidden={isHidden} />
               <div>
                 <p className='prompt-size white mt-2 mb-05'>Prompt</p>
                 <p className='text-center prompt-size grey'>{prompt}</p>
-                <p className='prompt-size white mt-1 mb-05'>Created At</p>
+                <p className={`prompt-size white mt-1 mb-05 ${isHidden}`}>Created At</p>
                 <p className='text-center prompt-size grey mb-2'>{createdAt}</p>
               </div>
             </div>
