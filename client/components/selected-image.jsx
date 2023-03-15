@@ -14,13 +14,6 @@ export default function SelectedImage({ imageId, user }) {
 
     setIsLoading(true);
     fetch(`/api/images/${imageId}`)
-      // .then(response => {
-      //   if (!response.ok) {
-      //     console.log(response);
-      //     throw new Error(response.message);
-      //   }
-      //   return response.json();
-      // })
       .then(response => response.json())
       .then(data => {
         setIsLoading(false);
@@ -75,14 +68,14 @@ export default function SelectedImage({ imageId, user }) {
       <IsLoadingSpinner />
     );
   }
-
+  const isHidden = user ? '' : 'hidden';
   const { heartColor, heartFill } = switchClasses[isLiked ? 'liked' : 'unliked'];
   const { src, prompt, createdAt, username } = image;
   return (
     <div className='row center flex-column mt-2 mr-1 ml-1'>
       <div className='relative'>
         <img className='selected-img' src={src} alt={prompt} />
-        <LikeButton handleButtonClick={handleButtonClick} heartFill={heartFill} heartColor={heartColor} />
+        <LikeButton handleButtonClick={handleButtonClick} heartFill={heartFill} heartColor={heartColor} isHidden={isHidden} />
         <div>
           <p className='prompt-size white mt-2 mb-05'>Prompt</p>
           <p className='text-center prompt-size grey'>{prompt}</p>
