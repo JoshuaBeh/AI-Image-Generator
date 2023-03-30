@@ -22,6 +22,11 @@ and view the most liked images.
 ## User can view all images and top images
 ![topall6](https://user-images.githubusercontent.com/113414352/227804859-483d8e80-0167-4d8b-baa3-d43539a204f8.gif)
 
+## Stretch Features
+1. Allow users to change uploaded images with DALL.E 2
+2. Allow users to search for created images
+3. Allow users to search for other users and view their images
+
 ## Running AI Image Generator on your local machine
 
 * System Requirements
