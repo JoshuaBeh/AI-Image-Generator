@@ -21,3 +21,26 @@ and view the most liked images.
 ![signup](https://user-images.githubusercontent.com/113414352/227804145-a430463d-5688-4277-93e0-9f523a75d0a4.gif)
 ## User can view all images and top images
 ![topall6](https://user-images.githubusercontent.com/113414352/227804859-483d8e80-0167-4d8b-baa3-d43539a204f8.gif)
+
+## Running AI Image Generator on your local machine
+
+* System Requirements
+..* Node.js
+..* PostgreSQL
+..* Git
+
+1. Install Dependencies
+..* Make sure you have Node.js installed on your machine.
+..* Clone the repository from GitHub `https://github.com/JoshuaBeh/AI-Image-Generator.git`.
+..* Navigate to the cloned repository and run `npm install` to install all dependencies.
+2. OpenAI Account
+..* Sign up for an account at (https://openai.com/product).
+..* Navigate to your profile to access your API key.
+3. AWS Account
+..* Sign up for an account at (https://aws.amazon.com/).
+..* Create a new S3 bucket and a new user for the bucket.
+..* The bucket name, region, and key ID are needed within the `.env` file.
+4. Configuration Files
+..* Create a new file called `.env` at the root of the repository.
+..* Copy the contents of the `.env.example` file into the new `.env` file.
+..* Replace the placeholder values in the `.env` file with your own configuration settings.
