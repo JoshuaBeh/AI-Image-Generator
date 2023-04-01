@@ -44,7 +44,7 @@ and view the most liked images.
 3. AWS Account
     * Sign up for an account at (https://aws.amazon.com/).
     * Create a new S3 bucket and a new user for the bucket.
-    * The bucket name, region, and key ID are needed required the `.env` file.
+    * The bucket name, region, and key ID are required within the `.env` file.
 4. Configuration Files
     * Create a new file called `.env` at the root of the repository.
     * Copy the contents of the `.env.example` file into the new `.env` file.
